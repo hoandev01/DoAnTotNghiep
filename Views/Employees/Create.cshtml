@@ -1,0 +1,56 @@
+﻿@model ChickenF.Models.Employee
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="max-w-2xl mx-auto mt-8 px-4">
+    <h1 class="text-2xl font-bold text-gray-800 mb-6">Add New Employee</h1>
+
+    <form asp-action="Create" method="post" class="space-y-6">
+        <div>
+            <label asp-for="FullName" class="block text-sm font-medium text-gray-700">Name</label>
+            <input asp-for="FullName"
+                   class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500" />
+            <span asp-validation-for="FullName" class="text-red-500 text-sm mt-1 block"></span>
+        </div>
+
+        <div>
+            <label asp-for="Username" class="block text-sm font-medium text-gray-700">Username</label>
+            <input asp-for="Username"
+                   class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500" />
+            <span asp-validation-for="Username" class="text-red-500 text-sm mt-1 block"></span>
+        </div>
+
+        <div>
+            <label asp-for="Password" class="block text-sm font-medium text-gray-700">Password</label>
+            <input asp-for="Password" type="password"
+                   class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500" />
+            <span asp-validation-for="Password" class="text-red-500 text-sm mt-1 block"></span>
+        </div>
+
+        <div>
+            <label asp-for="Phone" class="block text-sm font-medium text-gray-700">Phone Number</label>
+            <input asp-for="Phone"
+                   class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500" />
+            <span asp-validation-for="Phone" class="text-red-500 text-sm mt-1 block"></span>
+        </div>
+
+        <div>
+            <label asp-for="Email" class="block text-sm font-medium text-gray-700">Email</label>
+            <input asp-for="Email"
+                   class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500" />
+            <span asp-validation-for="Email" class="text-red-500 text-sm mt-1 block"></span>
+        </div>
+
+        <div class="flex items-center gap-3">
+            <button type="submit"
+                    class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 text-sm font-medium shadow">
+                Add
+            </button>
+            <a asp-action="Index"
+               class="bg-gray-300 text-gray-800 px-4 py-2 rounded hover:bg-gray-400 text-sm font-medium shadow">
+                Back
+            </a>
+        </div>
+    </form>
+</div>

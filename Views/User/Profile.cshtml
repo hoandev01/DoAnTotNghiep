@@ -1,0 +1,29 @@
+﻿@model ChickenF.Models.User
+@{
+    var isAdmin = ViewData["IsAdmin"] as bool? ?? false;
+    Layout = isAdmin ? "~/Views/Shared/_LayoutAdmin.cshtml" : "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+    <h2 class="mb-4 text-primary">👤 Profile</h2>
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-3">UserName:</dt>
+                <dd class="col-sm-9">@Model.Username</dd>
+
+                <dt class="col-sm-3">FullName:</dt>
+                <dd class="col-sm-9">@Model.FullName</dd>
+
+                <dt class="col-sm-3">Role:</dt>
+                <dd class="col-sm-9">@Model.RoleName</dd>
+            </dl>
+
+            <div class="mt-4">
+                <a class="btn btn-primary" href="@Url.Action("EditProfile", "User")">✏️ Edit</a>
+                <a class="btn btn-secondary" href="@Url.Action("Index", "Home")">🏠 Home</a>
+            </div>
+        </div>
+    </div>
+</div>

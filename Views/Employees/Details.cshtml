@@ -1,0 +1,50 @@
+﻿@model ChickenF.Models.Employee
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="max-w-2xl mx-auto mt-10 px-4">
+    <h1 class="text-3xl font-bold text-indigo-700 mb-8">Employee Details</h1>
+
+    <div class="bg-white shadow-md rounded-xl overflow-hidden">
+        <div class="p-6">
+            <dl class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4">
+                <div>
+                    <dt class="text-sm font-medium text-gray-500">Full Name</dt>
+                    <dd class="mt-1 text-base text-gray-900">@Model.FullName</dd>
+                </div>
+
+                <div>
+                    <dt class="text-sm font-medium text-gray-500">Username</dt>
+                    <dd class="mt-1 text-base text-gray-900">@Model.Username</dd>
+                </div>
+
+                <div>
+                    <dt class="text-sm font-medium text-gray-500">Phone</dt>
+                    <dd class="mt-1 text-base text-gray-900">@Model.Phone</dd>
+                </div>
+
+                <div>
+                    <dt class="text-sm font-medium text-gray-500">Email</dt>
+                    <dd class="mt-1 text-base text-gray-900">@Model.Email</dd>
+                </div>
+
+                <div>
+                    <dt class="text-sm font-medium text-gray-500">Role</dt>
+                    <dd class="mt-1 text-base text-gray-900">Employee</dd>
+                </div>
+            </dl>
+        </div>
+
+        <div class="border-t bg-gray-50 px-6 py-4 flex justify-end gap-3">
+            <a asp-action="Edit" asp-route-id="@Model.Id"
+               class="inline-block bg-yellow-500 hover:bg-yellow-600 text-white text-sm font-semibold px-5 py-2 rounded-md shadow-sm transition">
+                ✏️ Edit
+            </a>
+            <a asp-action="Index"
+               class="inline-block bg-gray-300 hover:bg-gray-400 text-gray-800 text-sm font-semibold px-5 py-2 rounded-md shadow-sm transition">
+                ← Back
+            </a>
+        </div>
+    </div>
+</div>

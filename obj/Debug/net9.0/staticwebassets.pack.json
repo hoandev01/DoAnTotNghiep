@@ -1,0 +1,537 @@
+{
+  "Files": [
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\obj\\Debug\\net9.0\\scopedcss\\projectbundle\\ChickenF.bundle.scp.css",
+      "PackagePath": "staticwebassets\\ChickenF.dmw9ebkb7g.bundle.scp.css"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\Image\\Ac.jpg",
+      "PackagePath": "staticwebassets\\Image\\Ac.jpg"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\Image\\Arboi Acres.jpg",
+      "PackagePath": "staticwebassets\\Image\\Arboi Acres.jpg"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\Image\\ArboiAcresSmall.jpg",
+      "PackagePath": "staticwebassets\\Image\\ArboiAcresSmall.jpg"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\Image\\BE.jpg",
+      "PackagePath": "staticwebassets\\Image\\BE.jpg"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\Image\\Brown Nick.jpg",
+      "PackagePath": "staticwebassets\\Image\\Brown Nick.jpg"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\Image\\BrownNickLarge.jpg",
+      "PackagePath": "staticwebassets\\Image\\BrownNickLarge.jpg"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\Image\\BrownNickMedium.jpg",
+      "PackagePath": "staticwebassets\\Image\\BrownNickMedium.jpg"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\Image\\BrownNickSmall.jpg",
+      "PackagePath": "staticwebassets\\Image\\BrownNickSmall.jpg"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\Image\\Gold Line.jpg",
+      "PackagePath": "staticwebassets\\Image\\Gold Line.jpg"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\Image\\GoldLineLarge.jpg",
+      "PackagePath": "staticwebassets\\Image\\GoldLineLarge.jpg"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\Image\\GoldLineMedium.jpg",
+      "PackagePath": "staticwebassets\\Image\\GoldLineMedium.jpg"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\Image\\GoldLineSmall.jpg",
+      "PackagePath": "staticwebassets\\Image\\GoldLineSmall.jpg"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\Image\\Hubbard.jpg",
+      "PackagePath": "staticwebassets\\Image\\Hubbard.jpg"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\Image\\HubbardLarge.jpg",
+      "PackagePath": "staticwebassets\\Image\\HubbardLarge.jpg"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\Image\\HubbardMedium.jpg",
+      "PackagePath": "staticwebassets\\Image\\HubbardMedium.jpg"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\Image\\HubbardSmall.jpg",
+      "PackagePath": "staticwebassets\\Image\\HubbardSmall.jpg"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\Image\\Luong Phuong.jpg",
+      "PackagePath": "staticwebassets\\Image\\Luong Phuong.jpg"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\Image\\LuongPhuongLarge.jpg",
+      "PackagePath": "staticwebassets\\Image\\LuongPhuongLarge.jpg"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\Image\\LuongPhuongMedium.jpg",
+      "PackagePath": "staticwebassets\\Image\\LuongPhuongMedium.jpg"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\Image\\LuongPhuongSmall.jpg",
+      "PackagePath": "staticwebassets\\Image\\LuongPhuongSmall.jpg"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\Image\\New Hampshire.jpg",
+      "PackagePath": "staticwebassets\\Image\\New Hampshire.jpg"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\Image\\New Hamshire Medium.jpg",
+      "PackagePath": "staticwebassets\\Image\\New Hamshire Medium.jpg"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\Image\\New Hamshire large.jpg",
+      "PackagePath": "staticwebassets\\Image\\New Hamshire large.jpg"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\Image\\New Hamshire small.jpg",
+      "PackagePath": "staticwebassets\\Image\\New Hamshire small.jpg"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\Image\\Partner 1.png",
+      "PackagePath": "staticwebassets\\Image\\Partner 1.png"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\Image\\Partner 2.png",
+      "PackagePath": "staticwebassets\\Image\\Partner 2.png"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\Image\\Partner 3.png",
+      "PackagePath": "staticwebassets\\Image\\Partner 3.png"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\Image\\Partner 4.png",
+      "PackagePath": "staticwebassets\\Image\\Partner 4.png"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\Image\\Plymouth.jpg",
+      "PackagePath": "staticwebassets\\Image\\Plymouth.jpg"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\Image\\PlymouthLarge.jpg",
+      "PackagePath": "staticwebassets\\Image\\PlymouthLarge.jpg"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\Image\\PlymouthMedium.jpg",
+      "PackagePath": "staticwebassets\\Image\\PlymouthMedium.jpg"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\Image\\Plymouthsmall.jpg",
+      "PackagePath": "staticwebassets\\Image\\Plymouthsmall.jpg"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\Image\\Rhode Island Red Medium.jpg",
+      "PackagePath": "staticwebassets\\Image\\Rhode Island Red Medium.jpg"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\Image\\Rhode Island Red.jpg",
+      "PackagePath": "staticwebassets\\Image\\Rhode Island Red.jpg"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\Image\\Rhode-ri.jpg",
+      "PackagePath": "staticwebassets\\Image\\Rhode-ri.jpg"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\Image\\SilkieLarge.jpg",
+      "PackagePath": "staticwebassets\\Image\\SilkieLarge.jpg"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\Image\\SilkieMedium.jpg",
+      "PackagePath": "staticwebassets\\Image\\SilkieMedium.jpg"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\Image\\SilkieSmall.jpg",
+      "PackagePath": "staticwebassets\\Image\\SilkieSmall.jpg"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\Image\\aclarge.png",
+      "PackagePath": "staticwebassets\\Image\\aclarge.png"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\Image\\acmedium.png",
+      "PackagePath": "staticwebassets\\Image\\acmedium.png"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\Image\\acsmall.png",
+      "PackagePath": "staticwebassets\\Image\\acsmall.png"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\Image\\chicken.svg",
+      "PackagePath": "staticwebassets\\Image\\chicken.svg"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\Image\\egg.svg",
+      "PackagePath": "staticwebassets\\Image\\egg.svg"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\Image\\gata.jpg",
+      "PackagePath": "staticwebassets\\Image\\gata.jpg"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\Image\\hero1.jpg",
+      "PackagePath": "staticwebassets\\Image\\hero1.jpg"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\Image\\hero2.jpg",
+      "PackagePath": "staticwebassets\\Image\\hero2.jpg"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\Image\\ho.jpg",
+      "PackagePath": "staticwebassets\\Image\\ho.jpg"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\Image\\hoLarge.jpg",
+      "PackagePath": "staticwebassets\\Image\\hoLarge.jpg"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\Image\\hosmall.jpg",
+      "PackagePath": "staticwebassets\\Image\\hosmall.jpg"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\Image\\noi.jpg",
+      "PackagePath": "staticwebassets\\Image\\noi.jpg"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\Image\\rhode Island Red Small.jpg",
+      "PackagePath": "staticwebassets\\Image\\rhode Island Red Small.jpg"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\Image\\rhode island red large.png",
+      "PackagePath": "staticwebassets\\Image\\rhode island red large.png"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\Image\\ri.jpg",
+      "PackagePath": "staticwebassets\\Image\\ri.jpg"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\Image\\riLarge.jpg",
+      "PackagePath": "staticwebassets\\Image\\riLarge.jpg"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\Image\\rismall.jpg",
+      "PackagePath": "staticwebassets\\Image\\rismall.jpg"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\Image\\slide1.jpg",
+      "PackagePath": "staticwebassets\\Image\\slide1.jpg"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\Image\\slide2.jpg",
+      "PackagePath": "staticwebassets\\Image\\slide2.jpg"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\Image\\tamedium.jpg",
+      "PackagePath": "staticwebassets\\Image\\tamedium.jpg"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\Image\\tamhoang.jpg",
+      "PackagePath": "staticwebassets\\Image\\tamhoang.jpg"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\Image\\tamhoanglarge.jpg",
+      "PackagePath": "staticwebassets\\Image\\tamhoanglarge.jpg"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\Image\\tamhoangsmall.jpg",
+      "PackagePath": "staticwebassets\\Image\\tamhoangsmall.jpg"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\Image\\tasmall.jpg",
+      "PackagePath": "staticwebassets\\Image\\tasmall.jpg"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\Image\\tauvang.jpg",
+      "PackagePath": "staticwebassets\\Image\\tauvang.jpg"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\css\\homepage.css",
+      "PackagePath": "staticwebassets\\css\\homepage.css"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\css\\site.css",
+      "PackagePath": "staticwebassets\\css\\site.css"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\favicon.ico",
+      "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\js\\site.js",
+      "PackagePath": "staticwebassets\\js\\site.js"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\lib\\bootstrap\\LICENSE",
+      "PackagePath": "staticwebassets\\lib\\bootstrap"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css.map"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js.map"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\lib\\jquery-validation-unobtrusive\\dist\\jquery.validate.unobtrusive.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\dist\\jquery.validate.unobtrusive.js"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\lib\\jquery-validation-unobtrusive\\dist\\jquery.validate.unobtrusive.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\dist\\jquery.validate.unobtrusive.min.js"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\LICENSE.md"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.js"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.min.js"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.js"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.min.js"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\lib\\jquery\\LICENSE.txt",
+      "PackagePath": "staticwebassets\\lib\\jquery\\LICENSE.txt"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\lib\\jquery\\dist\\jquery.js",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.js"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\lib\\jquery\\dist\\jquery.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.js"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\lib\\jquery\\dist\\jquery.slim.js",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.slim.js"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\lib\\jquery\\dist\\jquery.slim.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.slim.min.js"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\ChickenF\\wwwroot\\lib\\jquery\\dist\\jquery.slim.min.map",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.slim.min.map"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.ChickenF.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.ChickenF.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.build.ChickenF.props",
+      "PackagePath": "build\\ChickenF.props"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.buildMultiTargeting.ChickenF.props",
+      "PackagePath": "buildMultiTargeting\\ChickenF.props"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.buildTransitive.ChickenF.props",
+      "PackagePath": "buildTransitive\\ChickenF.props"
+    }
+  ],
+  "ElementsToRemove": []
+}
