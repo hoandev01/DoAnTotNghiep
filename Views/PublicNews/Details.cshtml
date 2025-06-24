@@ -1,0 +1,158 @@
+﻿@model ChickenF.Models.NewsArticle
+
+@{
+    ViewData["Title"] = Model.Title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .news-header {
+        background: linear-gradient(135deg, #f0f8ff, #ffffff);
+        padding: 2rem;
+        border-radius: 1rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    .news-title {
+        font-size: 2.2rem;
+        font-weight: 700;
+        color: #0d6efd;
+        margin-bottom: 0.5rem;
+        line-height: 1.3;
+    }
+
+    .news-meta {
+        font-size: 0.9rem;
+        color: #6c757d;
+    }
+
+    .news-image {
+        border-radius: 1rem;
+        max-height: 420px;
+        object-fit: cover;
+        width: 100%;
+        margin-bottom: 2rem;
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease-in-out;
+    }
+
+        .news-image:hover {
+            transform: scale(1.015);
+        }
+
+    .news-summary {
+        font-size: 1.25rem;
+        color: #495057;
+        font-style: italic;
+        background-color: #f8f9fa;
+        border-left: 4px solid #0d6efd;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        margin-bottom: 2rem;
+        /* Hiển thị tối đa 3 dòng */
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .news-content {
+        font-size: 1.1rem;
+        line-height: 1.8;
+        color: #343a40;
+        max-width: 900px;
+        margin: auto;
+    }
+
+        .news-content p {
+            margin-bottom: 1.5rem;
+            text-align: justify;
+        }
+
+    .btn-back {
+        transition: 0.3s ease;
+    }
+
+        .btn-back:hover {
+            transform: translateX(-5px);
+        }
+
+    @@media (max-width: 768px) {
+        .news-title
+
+    {
+        font-size: 1.6rem;
+    }
+
+    .news-summary {
+        font-size: 1.05rem;
+    }
+
+    .news-content {
+        font-size: 1rem;
+    }
+
+    }
+</style>
+
+<div class="container py-5">
+    <div class="news-header text-center">
+        <div class="news-title">@Model.Title</div>
+        <div class="news-meta">🗓 @Model.PublishedDate.ToString("dd MMMM yyyy")</div>
+    </div>
+
+    @if (!string.IsNullOrEmpty(Model.ImageNews))
+    {
+        <img src="@Model.ImageNews" alt="Image" class="news-image" />
+    }
+
+    @if (!string.IsNullOrEmpty(Model.Summary))
+    {
+        <div class="news-summary">“@Model.Summary”</div>
+    }
+
+    <hr />
+
+    <div class="news-content" id="newsContent" style="white-space: pre-line">
+        @Html.Raw(Model.Content)
+    </div>
+
+    <div class="text-start mt-5">
+        <a asp-action="Index" class="btn btn-outline-primary btn-back">← Back to News</a>
+    </div>
+</div>
+@section Scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const contentDiv = document.getElementById("newsContent");
+
+            // Bỏ qua nếu đã có thẻ <p>
+            if (!contentDiv.innerHTML.includes("<p")) {
+                const rawText = contentDiv.innerText.trim();
+
+                // Tách đoạn theo dấu chấm + xuống dòng
+                const sentences = rawText.split(/(?<=[.?!])\s+/); // bắt các câu kết thúc bằng dấu . ? !
+
+                let paragraphs = [];
+                let currentParagraph = "";
+
+                sentences.forEach((sentence, index) => {
+                    currentParagraph += sentence + " ";
+
+                    // Sau mỗi 3 câu hoặc đến câu cuối thì tạo đoạn mới
+                    if ((index + 1) % 3 === 0 || index === sentences.length - 1) {
+                        paragraphs.push(currentParagraph.trim());
+                        currentParagraph = "";
+                    }
+                });
+
+                // Gộp lại thành các đoạn <p>
+                const formatted = paragraphs.map(p => `<p>${p}</p>`).join("\n");
+                contentDiv.innerHTML = formatted;
+            }
+        });
+    </script>
+}
+

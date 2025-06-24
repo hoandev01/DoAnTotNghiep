@@ -1,0 +1,54 @@
+﻿@model ChickenF.Models.Order
+
+@{
+    ViewData["Title"] = "Edit Order";
+}
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div class="container mt-4">
+    <h1 class="h3 mb-4 text-warning">Edit Order</h1>
+
+    <div class="card">
+        <div class="card-header bg-warning text-white">
+            <h5 class="mb-0">Update Information</h5>
+        </div>
+        <div class="card-body">
+            <form asp-action="Edit" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="UserId" />
+                <div class="mb-3">
+                    <label asp-for="UserId" class="form-label fw-bold"></label>
+                    <input asp-for="UserId" class="form-control border-warning" />
+                    <span asp-validation-for="UserId" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="OrderDate" class="form-label fw-bold"></label>
+                    <input asp-for="OrderDate" type="datetime-local" class="form-control border-warning" />
+                    <span asp-validation-for="OrderDate" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="TotalAmount" class="form-label fw-bold"></label>
+                    <input asp-for="TotalAmount" class="form-control border-warning" />
+                    <span asp-validation-for="TotalAmount" class="text-danger"></span>
+                </div>
+                
+                <div class="mb-3">
+                    <label asp-for="Status" class="form-label fw-bold"></label>
+                    <input asp-for="Status" class="form-control border-warning" />
+                    <span asp-validation-for="Status" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <input type="submit" value="Save" class="btn btn-warning" />
+                    <a asp-action="Index" class="btn btn-outline-secondary ms-2">Back</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -1,0 +1,81 @@
+﻿@model PaginatedList<ChickenF.Models.Tracking>
+
+@{
+    ViewData["Title"] = "Tracking List";
+    Layout = "~/Views/Shared/_LayoutEmployee.cshtml";
+}
+
+<div class="px-6 py-8">
+    <div class="flex justify-between items-center mb-6">
+        <h1 class="text-2xl font-bold text-gray-800">📊 Tracking List</h1>
+        <a asp-action="Create" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 text-sm shadow">
+            + Create New Tracking
+        </a>
+    </div>
+
+    <div class="overflow-auto bg-white shadow rounded-xl">
+        <table class="min-w-full divide-y divide-gray-200 text-sm text-left">
+            <thead class="bg-gray-100 text-gray-700 uppercase text-center">
+                <tr>
+                    <th class="px-4 py-3">ID</th>
+                    <th class="px-4 py-3">Flock</th>
+                    <th class="px-4 py-3">Tracking Date</th>
+                    <th class="px-4 py-3">Health</th>
+                    <th class="px-4 py-3">Temp (°C)</th>
+                    <th class="px-4 py-3">Humidity (%)</th>
+                    <th class="px-4 py-3">Feed (kg)</th>
+                    <th class="px-4 py-3">Note</th>
+                    <th class="px-4 py-3">Actions</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-100 text-center">
+                @foreach (var item in Model)
+                {
+                    <tr class="hover:bg-gray-50">
+                        <td class="px-4 py-3">@item.Id</td>
+                        <td class="px-4 py-3">@item.Flock?.FlockName</td>
+                        <td class="px-4 py-3">@item.TrackingDate.ToString("yyyy-MM-dd")</td>
+                        <td class="px-4 py-3">@item.HealthStatus</td>
+                        <td class="px-4 py-3">@item.Temperature</td>
+                        <td class="px-4 py-3">@item.Humidity</td>
+                        <td class="px-4 py-3">@item.FeedCost</td>
+                        <td class="px-4 py-3">@item.Note</td>
+                        <td class="px-4 py-3">
+                            <div class="flex justify-center gap-2 flex-wrap">
+                                <a asp-action="Details" asp-route-id="@item.Id"
+                                   class="bg-blue-500 text-white px-3 py-1 rounded text-xs hover:bg-blue-600">Details</a>
+                                <a asp-action="Edit" asp-route-id="@item.Id"
+                                   class="bg-yellow-500 text-white px-3 py-1 rounded text-xs hover:bg-yellow-600">Edit</a>
+                                <a asp-action="Delete" asp-route-id="@item.Id"
+                                   class="bg-red-500 text-white px-3 py-1 rounded text-xs hover:bg-red-600">Delete</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Pagination -->
+    <div class="mt-6 flex justify-center">
+        <nav class="inline-flex space-x-1 rounded-md shadow-sm" aria-label="Pagination">
+            <a asp-action="Index" asp-route-page="@(Model.PageIndex - 1)"
+               class="px-3 py-1.5 border border-gray-300 rounded-l-md text-gray-700 bg-white hover:bg-gray-100 @(Model.HasPreviousPage ? "" : "opacity-50 pointer-events-none")">
+                Previous
+            </a>
+
+            @for (int i = 1; i <= Model.TotalPages; i++)
+            {
+                <a asp-action="Index" asp-route-page="@i"
+                   class="px-3 py-1.5 border border-gray-300 text-sm @(i == Model.PageIndex ? "bg-blue-600 text-white" : "text-gray-700 bg-white hover:bg-gray-100")">
+                    @i
+                </a>
+            }
+
+            <a asp-action="Index" asp-route-page="@(Model.PageIndex + 1)"
+               class="px-3 py-1.5 border border-gray-300 rounded-r-md text-gray-700 bg-white hover:bg-gray-100 @(Model.HasNextPage ? "" : "opacity-50 pointer-events-none")">
+                Next
+            </a>
+        </nav>
+    </div>
+</div>

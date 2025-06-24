@@ -1,0 +1,207 @@
+﻿@model List<ChickenF.Models.ViewModels.FlockReportViewModel>
+@{
+    ViewData["Title"] = "Reports & Analytics";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    var flockLabels = Model.Select(m => m.Flock?.FlockName ?? "N/A").ToList();
+    var revenues = Model.Select(m => m.TotalRevenue).ToList();
+    var feedCosts = Model.Select(m => m.TotalFeedCost).ToList();
+    var profits = Model.Select(m => m.Profit).ToList();
+}
+
+<div class="px-6 py-8">
+    <h2 class="text-2xl font-bold text-blue-600 mb-6">📊 Reports & Analytics</h2>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- Top Selling Products -->
+        <div class="bg-white shadow-md rounded-2xl p-6">
+            <h5 class="text-center font-semibold text-gray-700 mb-4">Top Selling Products</h5>
+            <canvas id="topSellingChart" height="300"></canvas>
+        </div>
+
+        <!-- Order Status Pie -->
+        <div class="bg-white shadow-md rounded-2xl p-6">
+            <h5 class="text-center font-semibold text-gray-700 mb-4">Order Status Distribution</h5>
+            <canvas id="orderStatusChart" height="300"></canvas>
+        </div>
+    </div>
+
+    <!-- Monthly Revenue -->
+    <div class="mt-8 bg-white shadow-md rounded-2xl p-6">
+        <h5 class="text-center font-semibold text-gray-700 mb-4">Monthly Revenue (VND)</h5>
+        <canvas id="monthlyRevenueChart" height="100"></canvas>
+    </div>
+
+    <!-- Flock Profit Report -->
+    <div class="mt-8 bg-white shadow-md rounded-2xl p-6">
+        <h5 class="text-center font-semibold text-gray-700 mb-4">Flock Profit Report</h5>
+        <canvas id="flockChart" height="100"></canvas>
+        <div class="overflow-x-auto mt-4">
+            <table class="min-w-full text-sm divide-y divide-gray-200 text-center">
+                <thead class="bg-gray-100 text-gray-700 uppercase">
+                    <tr>
+                        <th class="px-4 py-2">Flock</th>
+                        <th class="px-4 py-2">Category</th>
+                        <th class="px-4 py-2">Cage</th>
+                        <th class="px-4 py-2">Raised</th>
+                        <th class="px-4 py-2">Sold</th>
+                        <th class="px-4 py-2">Revenue</th>
+                        <th class="px-4 py-2">Feed Cost</th>
+                        <th class="px-4 py-2">Profit</th>
+                        <th class="px-4 py-2">Date</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-100">
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="px-4 py-2">@item.Flock?.FlockName </td>
+                            <td class="px-4 py-2">@item.Flock?.Category?.CategoryName </td>
+                            <td class="px-4 py-2">@item.Flock?.Cage?.CageName </td>
+                            <td class="px-4 py-2">@item.TotalRaised</td>
+                            <td class="px-4 py-2">@item.TotalSold</td>
+                            <td class="px-4 py-2 text-green-600 font-medium">@item.TotalRevenue.ToString("N0") ₫</td>
+                            <td class="px-4 py-2 text-red-600">@item.TotalFeedCost.ToString("N0") ₫</td>
+                            <td class="px-4 py-2 font-semibold">@item.Profit.ToString("N0") ₫</td>
+                            <td class="px-4 py-2">@item.ReportGeneratedAt.ToString("dd/MM/yyyy")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        // Top Selling Products
+        fetch('/Admin/Report/GetTopSellingProducts')
+            .then(res => res.json())
+            .then(data => {
+                const ctx = document.getElementById('topSellingChart').getContext('2d');
+                const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+                gradient.addColorStop(0, '#4facfe');
+                gradient.addColorStop(1, '#00f2fe');
+
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: data.map(x => x.name),
+                        datasets: [{
+                            label: 'Sold Quantity',
+                            data: data.map(x => x.quantity),
+                            backgroundColor: gradient,
+                            borderRadius: 10
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            });
+
+        // Order Status Pie
+        fetch('/Admin/Report/GetOrderStatusDistribution')
+            .then(res => res.json())
+            .then(data => {
+                const ctx = document.getElementById('orderStatusChart');
+                new Chart(ctx, {
+                    type: 'pie',
+                    data: {
+                        labels: data.map(x => x.status),
+                        datasets: [{
+                            data: data.map(x => x.count),
+                            backgroundColor: ['#22c55e', '#facc15', '#0ea5e9', '#ef4444']
+                        }]
+                    },
+                    options: {
+                        responsive: true
+                    }
+                });
+            });
+
+        // Monthly Revenue
+        fetch('/Admin/Report/GetMonthlyRevenue')
+            .then(res => res.json())
+            .then(data => {
+                const ctx = document.getElementById('monthlyRevenueChart').getContext('2d');
+                const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+                gradient.addColorStop(0, 'rgba(59,130,246,0.4)');
+                gradient.addColorStop(1, 'rgba(59,130,246,0)');
+
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: data.map(x => x.month),
+                        datasets: [{
+                            label: 'Revenue (VND)',
+                            data: data.map(x => x.totalRevenue),
+                            borderColor: '#3b82f6',
+                            backgroundColor: gradient,
+                            fill: true,
+                            tension: 0.3
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    callback: value => value.toLocaleString() + ' ₫'
+                                }
+                            }
+                        }
+                    }
+                });
+            });
+
+        // Flock Chart bằng Razor Model
+        const flockLabels = @Html.Raw(Json.Serialize(flockLabels));
+        const revenues = @Html.Raw(Json.Serialize(revenues));
+        const feedCosts = @Html.Raw(Json.Serialize(feedCosts));
+        const profits = @Html.Raw(Json.Serialize(profits));
+
+        const ctxFlock = document.getElementById('flockChart').getContext('2d');
+        new Chart(ctxFlock, {
+            type: 'bar',
+            data: {
+                labels: flockLabels,
+                datasets: [
+                    {
+                        label: 'Revenue',
+                        data: revenues,
+                        backgroundColor: 'rgba(34,197,94,0.6)'
+                    },
+                    {
+                        label: 'Feed Cost',
+                        data: feedCosts,
+                        backgroundColor: 'rgba(239,68,68,0.6)'
+                    },
+                    {
+                        label: 'Profit',
+                        data: profits,
+                        backgroundColor: 'rgba(59,130,246,0.6)'
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: value => value.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+}

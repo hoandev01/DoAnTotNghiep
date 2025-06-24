@@ -1,0 +1,51 @@
+﻿@model ChickenF.Models.User
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="max-w-3xl mx-auto mt-10 px-4 sm:px-6 lg:px-8">
+    <h2 class="text-3xl font-bold text-indigo-600 mb-6 flex items-center">
+        👤 <span class="ml-2">Profile</span>
+    </h2>
+
+    <div class="bg-white shadow-md rounded-xl p-6">
+        <dl class="divide-y divide-gray-200 space-y-4 text-gray-800">
+            <div class="grid grid-cols-3 gap-4">
+                <dt class="font-semibold">Username:</dt>
+                <dd class="col-span-2">@Model.Username</dd>
+            </div>
+
+            <div class="grid grid-cols-3 gap-4 pt-4">
+                <dt class="font-semibold">Full Name:</dt>
+                <dd class="col-span-2">@Model.FullName</dd>
+            </div>
+
+            <div class="grid grid-cols-3 gap-4 pt-4">
+                <dt class="font-semibold">Role:</dt>
+                <dd class="col-span-2">
+                    @{
+                        string roleLabel = Model switch
+                        {
+                            ChickenF.Models.Admin => "Admin",
+                            ChickenF.Models.Employee => "Employee",
+                            ChickenF.Models.Customer => "Customer",
+                            _ => "Unknown"
+                        };
+                    }
+                    @roleLabel
+                </dd>
+            </div>
+        </dl>
+
+        <div class="mt-6 flex gap-4">
+            <a href="@Url.Action("EditProfile", "AdminUser")"
+               class="inline-flex items-center px-5 py-2 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 transition">
+                ✏️ Edit
+            </a>
+            <a href="@Url.Action("Index", "Report")"
+               class="inline-flex items-center px-5 py-2 bg-gray-500 text-white font-medium rounded-md hover:bg-gray-600 transition">
+                🏠 Admin Dashboard
+            </a>
+        </div>
+    </div>
+</div>

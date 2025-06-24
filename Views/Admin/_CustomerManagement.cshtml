@@ -1,0 +1,32 @@
+﻿@model ChickenF.Models.AdminDashboardViewModel
+
+<h2 class="text-3xl font-semibold mb-6 text-gray-900">Quản lý Khách hàng</h2>
+<div class="overflow-x-auto">
+    <table class="w-full border-collapse rounded-xl shadow-md divide-y divide-gray-200">
+        <thead class="bg-gray-50">
+            <tr>
+                <th class="text-left px-6 py-3 font-semibold text-gray-700">Tên</th>
+                <th class="text-left px-6 py-3 font-semibold text-gray-700">Tên đăng nhập</th>
+                <th class="text-left px-6 py-3 font-semibold text-gray-700">Email</th>
+                <th class="text-left px-6 py-3 font-semibold text-gray-700">Số điện thoại</th>
+                <th class="text-left px-6 py-3 font-semibold text-gray-700">Hành động</th>
+            </tr>
+        </thead>
+        <tbody class="bg-white divide-y divide-gray-200">
+            @foreach (var customer in Model.Customers)
+            {
+                <tr class="hover:bg-gray-50 transition duration-200">
+                    <td class="px-6 py-4">@customer.FullName</td>
+                    <td class="px-6 py-4">@customer.Username</td>
+                    <td class="px-6 py-4">@customer.Email</td>
+                    <td class="px-6 py-4">@customer.Phone</td>
+                    <td class="px-6 py-4 space-x-4">
+                        <a asp-controller="Customer" asp-action="Edit" asp-route-id="@customer.Id" class="text-indigo-600 font-semibold hover:underline">Sửa</a>
+                        <a asp-controller="Customer" asp-action="Details" asp-route-id="@customer.Id" class="text-gray-600 font-semibold hover:underline">Chi tiết</a>
+                        <a asp-controller="Customer" asp-action="Delete" asp-route-id="@customer.Id" class="text-red-600 font-semibold hover:underline">Xóa</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

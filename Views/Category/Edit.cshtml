@@ -1,0 +1,64 @@
+﻿@model ChickenF.Models.Category
+@{
+    Layout = "~/Views/Shared/_LayoutEmployee.cshtml";
+}
+
+<div class="max-w-xl mx-auto mt-8 px-4">
+    <h1 class="text-2xl font-bold text-gray-800 mb-6">Edit Category Information</h1>
+
+    <form asp-action="Edit" method="post" class="space-y-6">
+        <input type="hidden" asp-for="Id" />
+
+        <!-- Category Name -->
+        <div>
+            <label asp-for="CategoryName" class="block text-sm font-medium text-gray-700">Name</label>
+            <input asp-for="CategoryName"
+                   class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50" />
+            <span asp-validation-for="CategoryName" class="text-red-500 text-sm mt-1 block"></span>
+        </div>
+
+        <!-- Brooding Days -->
+        <div>
+            <label asp-for="BroodingDays" class="block text-sm font-medium text-gray-700">Brooding Days</label>
+            <input asp-for="BroodingDays" type="number" min="1"
+                   class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50" />
+            <span asp-validation-for="BroodingDays" class="text-red-500 text-sm mt-1 block"></span>
+        </div>
+
+        <!-- Growth Days -->
+        <div>
+            <label asp-for="GrowthDays" class="block text-sm font-medium text-gray-700">Growth Days</label>
+            <input asp-for="GrowthDays" type="number" min="1"
+                   class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50" />
+            <span asp-validation-for="GrowthDays" class="text-red-500 text-sm mt-1 block"></span>
+        </div>
+
+        <!-- Pre-Sale Days -->
+        <div>
+            <label asp-for="PreSaleDays" class="block text-sm font-medium text-gray-700">Pre-Sale Days</label>
+            <input asp-for="PreSaleDays" type="number" min="0"
+                   class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50" />
+            <span asp-validation-for="PreSaleDays" class="text-red-500 text-sm mt-1 block"></span>
+        </div>
+
+        <!-- Ready Days -->
+        <div>
+            <label asp-for="ReadyDays" class="block text-sm font-medium text-gray-700">Ready-for-Sale Days</label>
+            <input asp-for="ReadyDays" type="number" min="0"
+                   class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50" />
+            <span asp-validation-for="ReadyDays" class="text-red-500 text-sm mt-1 block"></span>
+        </div>
+
+        <!-- Buttons -->
+        <div class="flex items-center gap-3">
+            <button type="submit"
+                    class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 text-sm font-medium shadow">
+                Save
+            </button>
+            <a asp-action="Index"
+               class="bg-gray-300 text-gray-800 px-4 py-2 rounded hover:bg-gray-400 text-sm font-medium shadow">
+                Back
+            </a>
+        </div>
+    </form>
+</div>

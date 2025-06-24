@@ -1,0 +1,33 @@
+﻿@model ChickenF.Models.Order
+
+@{
+    ViewData["Title"] = "Order Details";
+}
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div class="container mt-4">
+    <h1 class="h3 mb-4 text-info">Order Details</h1>
+
+    <div class="card">
+        <div class="card-header bg-info text-white">
+            <h5 class="mb-0">Order Information</h5>
+        </div>
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-3 fw-bold">User ID</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.UserId)</dd>
+                <dt class="col-sm-3 fw-bold">Order Date</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.OrderDate)</dd>
+                <dt class="col-sm-3 fw-bold">Total Amount</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.TotalAmount)</dd>
+                <dt class="col-sm-3 fw-bold">Status</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Status)</dd>
+            </dl>
+        </div>
+        <div class="card-footer">
+            <a asp-action="Edit" asp-route-id="@Model?.UserId" class="btn btn-warning me-2">Edit</a>
+            <a asp-action="Index" class="btn btn-outline-secondary">Back</a>
+        </div>
+    </div>
+</div>

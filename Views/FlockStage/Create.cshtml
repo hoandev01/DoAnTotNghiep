@@ -1,0 +1,69 @@
+﻿@model ChickenF.Models.FlockStage
+
+@{
+    ViewData["Title"] = "Create Flock Stage";
+    Layout = "~/Views/Shared/_LayoutEmployee.cshtml";
+}
+
+<div class="max-w-2xl mx-auto p-6 bg-white rounded-2xl shadow-md mt-10">
+    <h2 class="text-2xl font-semibold mb-6 text-gray-800">Create Flock Stage</h2>
+
+    <form asp-action="Create" method="post" class="space-y-6">
+
+        
+
+        
+        <!-- FlockId: dropdown list -->
+        <div>
+            <label asp-for="FlockId" class="block text-sm font-medium text-gray-700 mb-1"></label>
+            <select asp-for="FlockId" asp-items="ViewBag.FlockList">
+                <option value="">-- Select Flock --</option>
+            </select>
+            <span asp-validation-for="FlockId" class="text-sm text-red-600 mt-1 block"></span>
+        </div>
+
+        <!-- StageName -->
+        <div>
+            <label asp-for="StageName" class="block text-sm font-medium text-gray-700 mb-1"></label>
+            <input asp-for="StageName" class="w-full border-gray-300 rounded-xl shadow-sm focus:ring-blue-500 focus:border-blue-500" />
+            <span asp-validation-for="StageName" class="text-sm text-red-600 mt-1 block"></span>
+        </div>
+
+        <!-- StartDate -->
+        <div>
+            <label asp-for="StartDate" class="block text-sm font-medium text-gray-700 mb-1"></label>
+            <input asp-for="StartDate" type="date" class="w-full border-gray-300 rounded-xl shadow-sm focus:ring-blue-500 focus:border-blue-500" />
+            <span asp-validation-for="StartDate" class="text-sm text-red-600 mt-1 block"></span>
+        </div>
+
+        <!-- EndDate -->
+        <div>
+            <label asp-for="EndDate" class="block text-sm font-medium text-gray-700 mb-1"></label>
+            <input asp-for="EndDate" type="date" class="w-full border-gray-300 rounded-xl shadow-sm focus:ring-blue-500 focus:border-blue-500" />
+            <span asp-validation-for="EndDate" class="text-sm text-red-600 mt-1 block"></span>
+        </div>
+
+        <!-- StageNote -->
+        <div>
+            <label asp-for="Note" class="block text-sm font-medium text-gray-700 mb-1"></label>
+            <textarea asp-for="Note" rows="4" class="w-full border-gray-300 rounded-xl shadow-sm focus:ring-blue-500 focus:border-blue-500"></textarea>
+            <span asp-validation-for="Note" class="text-sm text-red-600 mt-1 block"></span>
+        </div>
+
+        <!-- Action buttons -->
+        <div class="flex justify-between">
+            <button type="submit" class="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-xl shadow-md">
+                Save
+            </button>
+            <a asp-action="Index" asp-route-flockId="@Model.FlockId" class="text-gray-600 hover:text-blue-600 underline">
+                Back to List
+            </a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

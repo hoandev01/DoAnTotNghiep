@@ -1,6 +1,173 @@
+# Visual Studio folders
 .vs/
+.vshistory/
+.vscode/
+.localhistory/
+
+# User-specific files
 *.user
 *.suo
-*.vs/
+*.rsuser
+*.userosscache
+*.sln.docstates
+*.userprefs
+
+# Mono auto generated files
+mono_crash.*
+
+# Build results
 bin/
 obj/
+out/
+bld/
+[Dd]ebug*/
+[Rr]elease*/
+x64/
+x86/
+[Aa][Rr][Mm]*/
+[Aa][Rr][Mm]64*/
+logs/
+*.log
+*.tlog
+*.tmp
+
+# MSTest test Results
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+
+# NUnit
+*.VisualState.xml
+TestResult.xml
+nunit-*.xml
+
+# DotNet coverage and benchmarking
+*.coverage
+*.coveragexml
+coverage*.json
+coverage*.xml
+coverage*.info
+BenchmarkDotNet.Artifacts/
+
+# Publish output
+publish/
+*.publishproj
+*.pubxml
+*.azurePubxml
+*.[Pp]ublish.xml
+PublishScripts/
+
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+# NuGet
+*.nupkg
+*.snupkg
+*.nuget.props
+*.nuget.targets
+**/[Pp]ackages/*
+!**/[Pp]ackages/build/
+
+# SQL Server
+*.mdf
+*.ldf
+*.ndf
+
+# ReSharper, Rider
+_ReSharper*/
+*.DotSettings.user
+*.sln.iml
+
+# Other IDEs/tools
+*.pidb
+*.svclog
+*.aps
+*.ncb
+*.opendb
+*.sdf
+*.VC.db
+*.VC.VC.opendb
+*.gpState
+*.jmconfig
+*.btp.cs
+*.btm.cs
+*.odx.cs
+*.xsd.cs
+
+# Fakes
+FakesAssemblies/
+
+# Static analysis and code quality
+.axoCover/
+.ncrunch*
+*.dotCover
+
+# Azure
+*.build.csdef
+csx/
+ecf/
+rcf/
+AppPackages/
+BundleArtifacts/
+Package.StoreAssociation.xml
+
+# Node.js
+node_modules/
+
+# Temporary or backup files
+~$*
+*~
+*.bak
+*.cache
+*.dbmdl
+*.jfm
+*.pfx
+*.publishsettings
+*.tmp_proj
+*.code-workspace
+
+# VS generated
+Generated\ Files/
+*.ilk
+*.meta
+*.obj
+*.iobj
+*.pch
+*.pdb
+*.ipdb
+*.pgc
+*.pgd
+*.rsp
+*.sbr
+*.tlb
+*.tli
+*.tlh
+.builds
+*.e2e
+*.scc
+*.vspscc
+*.vssscc
+
+# Ignore JetBrains Rider
+.idea/
+*.sln.iml
+
+# Ignore Cake tool (optional)
+# tools/**
+# !tools/packages.config
+
+# Paket
+.paket/paket.exe
+paket-files/
+
+# Ionide (F# for VS Code)
+.ionide/
+
+# FAKE - F# Make
+.fake/
+
+# Ignore Python compiled files if any Python scripts used
+__pycache__/
+*.pyc
+
+# Ignore history plugins
+.history/
