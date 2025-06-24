@@ -1,0 +1,42 @@
+﻿@{
+    ViewData["Title"] = "Login";
+}
+
+<div class="min-h-screen flex items-center justify-center bg-white px-6">
+    <div class="max-w-md w-full bg-white rounded-lg shadow-md p-10">
+        <h1 class="text-4xl font-extrabold text-gray-900 mb-8 text-center">Đăng nhập</h1>
+
+        @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+        {
+            <div class="bg-red-50 border border-red-400 text-red-700 px-4 py-3 rounded mb-6" role="alert">
+                <p>@ViewBag.ErrorMessage</p>
+            </div>
+        }
+
+        <form method="post" asp-controller="Account" asp-action="Login" class="space-y-6" novalidate>
+            <div>
+                <label for="username" class="block text-gray-700 font-semibold mb-2">Tên đăng nhập</label>
+                <input id="username" name="username" type="text" required
+                       class="w-full rounded-md border border-gray-300 px-4 py-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-black focus:ring-2 focus:ring-black transition" />
+            </div>
+
+            <div>
+                <label for="password" class="block text-gray-700 font-semibold mb-2">Mật khẩu</label>
+                <input id="password" name="password" type="password" required
+                       class="w-full rounded-md border border-gray-300 px-4 py-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-black focus:ring-2 focus:ring-black transition" />
+            </div>
+
+            <div>
+                <button type="submit"
+                        class="w-full bg-gray-900 text-white font-semibold py-3 rounded-md hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-black transition">
+                    Đăng nhập
+                </button>
+            </div>
+        </form>
+
+        <p class="mt-6 text-center text-gray-600">
+            Chưa có tài khoản?
+            <a href="@Url.Action("Register", "Account")" class="font-semibold text-indigo-600 hover:text-indigo-800">Đăng ký ngay</a>
+        </p>
+    </div>
+</div>

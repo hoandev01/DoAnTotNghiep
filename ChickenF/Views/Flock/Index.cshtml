@@ -1,0 +1,95 @@
+﻿@model List<ChickenF.Models.FlockViewModel>
+
+@{
+    ViewData["Title"] = "Flocks";
+    Layout = "~/Views/Shared/_LayoutEmployee.cshtml";
+    DateTime selectedDate = ViewBag.SelectedDate ?? DateTime.Now;
+}
+
+<div class="px-6 py-8">
+    <div class="flex justify-between items-center mb-6">
+        <h1 class="text-2xl font-bold text-gray-800">🐔 Flocks</h1>
+
+        <div class="flex items-center gap-3">
+            <!-- Date filter -->
+            <form method="get" class="flex items-center gap-2">
+                <input type="date" name="selectedDate" value="@selectedDate.ToString("yyyy-MM-dd")" class="border px-2 py-1 rounded" />
+                <button type="submit" class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 text-sm">Filter by Date</button>
+            </form>
+
+            <!-- Add new -->
+            <a asp-action="Create" class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700 text-sm shadow">
+                + Add New
+            </a>
+        </div>
+    </div>
+
+    <div class="overflow-auto bg-white shadow rounded-2xl">
+        <table class="min-w-full divide-y divide-gray-200 text-sm text-center">
+            <thead class="bg-gray-100 text-gray-700 uppercase">
+                <tr>
+                    <th class="px-4 py-3">Flock Name</th>
+                    <th class="px-4 py-3">Category</th>
+                    <th class="px-4 py-3">Cage</th>
+                    <th class="px-4 py-3">Quantity</th>
+                    <th class="px-4 py-3">Size</th>
+                    <th class="px-4 py-3">Day In</th>
+                    <th class="px-4 py-3">Feed Type</th>
+                    <th class="px-4 py-3">Flock Status</th>
+                    <th class="px-4 py-3">Current Stage</th>
+                    <th class="px-4 py-3">Stage Status</th>
+                    <th class="px-4 py-3">Actions</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-100">
+                @foreach (var vm in Model)
+                {
+                    var flock = vm.Flock;
+                    string highlightClass = "";
+
+                    if (vm.StatusMessage.Contains("✅"))
+                    {
+                        highlightClass = "bg-green-50 font-semibold";
+                    }
+                    else if (vm.StatusMessage.Contains("⏳") || vm.StatusMessage.Contains("📌"))
+                    {
+                        highlightClass = "bg-yellow-50";
+                    }
+                    else if (vm.StatusMessage.Contains("⚠️"))
+                    {
+                        highlightClass = "bg-red-50";
+                    }
+
+                    <tr class="hover:bg-gray-50 @highlightClass">
+                        <td class="px-3 py-2 font-medium">@flock.FlockName</td>
+                        <td class="px-3 py-2">@flock.Category?.CategoryName</td>
+                        <td class="px-3 py-2">@flock.Cage?.CageName</td>
+                        <td class="px-3 py-2">@flock.FlockQuantity</td>
+                        <td class="px-3 py-2">@flock.ChickenSize</td>
+                        <td class="px-3 py-2">@flock.DayIn.ToShortDateString()</td>
+                        <td class="px-3 py-2">@flock.FeedType</td>
+                        <td class="px-3 py-2">@flock.Status</td>
+                        <td class="px-3 py-2 text-blue-700 font-semibold">@vm.CurrentStageName</td>
+                        <td class="px-3 py-2 text-sm">
+                            @vm.StatusMessage
+                            @if (vm.SuggestedSaleDate != null)
+                            {
+                                <div class="text-xs text-green-700 mt-1">
+                                    🐣 Suggested Sale: @vm.SuggestedSaleDate.Value.ToShortDateString()
+                                </div>
+                            }
+                        </td>
+                        <td class="px-3 py-2">
+                            <div class="flex justify-center gap-2 flex-wrap">
+                                <a asp-action="Edit" asp-route-id="@flock.Id"
+                                   class="bg-yellow-500 text-white px-2 py-1 rounded text-xs hover:bg-yellow-600">Edit</a>
+                                <a asp-action="Delete" asp-route-id="@flock.Id"
+                                   class="bg-red-500 text-white px-2 py-1 rounded text-xs hover:bg-red-600">Delete</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

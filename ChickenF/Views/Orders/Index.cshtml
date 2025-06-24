@@ -1,0 +1,125 @@
+﻿@using ChickenF.Helpers
+@model PaginatedList<ChickenF.Models.Order>
+
+@{
+    Layout = "~/Views/Shared/_LayoutEmployee.cshtml";
+    ViewData["Title"] = "Order Management";
+}
+
+<div class="px-6 py-8">
+    <h1 class="text-2xl font-bold text-gray-800 mb-6">📦 Order Management</h1>
+
+    <!-- Table -->
+    <div class="overflow-auto bg-white shadow-lg rounded-2xl">
+        <table class="min-w-full divide-y divide-gray-200 text-sm text-center">
+            <thead class="bg-gray-100 text-gray-700 uppercase">
+                <tr>
+                    <th class="px-4 py-3">Order ID</th>
+                    <th class="px-4 py-3">User ID</th>
+                    <th class="px-4 py-3">Date Ordered</th>
+                    <th class="px-4 py-3">Total</th>
+                    <th class="px-4 py-3">Status</th>
+                    <th class="px-4 py-3">Actions</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-100">
+                @foreach (var order in Model)
+                {
+                    var status = order.Status;
+                    string badgeColor = status switch
+                    {
+                        OrderStatus.Pending => "bg-gray-500",
+                        OrderStatus.Shipping => "bg-blue-500",
+                        OrderStatus.Delivered => "bg-green-500",
+                        OrderStatus.Cancelled => "bg-red-500",
+                        _ => "bg-slate-700"
+                    };
+
+                    <tr class="hover:bg-gray-50">
+                        <td class="px-4 py-3 font-semibold">@order.Id</td>
+                        <td class="px-4 py-3">@order.UserId</td>
+                        <td class="px-4 py-3">@order.OrderDate.ToString("dd/MM/yyyy HH:mm")</td>
+                        <td class="px-4 py-3">@order.TotalAmount.ToString("N0") VNĐ</td>
+                        <td class="px-4 py-3">
+                            <span class="text-white px-3 py-1 rounded-full text-xs font-semibold @badgeColor">@status</span>
+                            @if (status == OrderStatus.Cancelled && !string.IsNullOrEmpty(order.CancelReason))
+                            {
+                                <div class="text-red-600 text-xs mt-1">Reason: @order.CancelReason</div>
+                            }
+                        </td>
+                        <td class="px-4 py-3">
+                            @if (order.Status == OrderStatus.Pending)
+                            {
+                                <div class="flex flex-col gap-2 items-center">
+                                    <form asp-action="AcceptOrder" method="post" class="w-full">
+                                        <input type="hidden" name="id" value="@order.Id" />
+                                        <button type="submit" class="w-full bg-green-600 text-white py-1 rounded hover:bg-green-700 text-sm transition">
+                                            ✅ Accept
+                                        </button>
+                                    </form>
+
+                                    <button type="button"
+                                            class="w-full bg-red-600 text-white py-1 rounded hover:bg-red-700 text-sm transition"
+                                            onclick="document.getElementById('modal-@order.Id').classList.remove('hidden')">
+                                        ❌ Cancel
+                                    </button>
+
+                                    <!-- Modal -->
+                                    <div id="modal-@order.Id" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
+                                        <div class="bg-white rounded-lg shadow-lg w-full max-w-md p-6">
+                                            <form asp-action="CancelOrder" method="post">
+                                                <input type="hidden" name="id" value="@order.Id" />
+                                                <h2 class="text-lg font-bold mb-4">Cancel Order @order.Id</h2>
+                                                <div class="mb-4">
+                                                    <label class="block text-sm font-medium text-gray-700 mb-1">Reason</label>
+                                                    <textarea name="reason" required class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring focus:border-blue-300"></textarea>
+                                                </div>
+                                                <div class="flex justify-end gap-2">
+                                                    <button type="button"
+                                                            class="bg-gray-300 hover:bg-gray-400 text-gray-800 px-4 py-2 rounded"
+                                                            onclick="document.getElementById('modal-@order.Id').classList.add('hidden')">
+                                                        Close
+                                                    </button>
+                                                    <button type="submit" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">
+                                                        Confirm Cancel
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <span class="text-gray-400 text-sm italic">No actions</span>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Pagination -->
+    <div class="mt-6 flex justify-center">
+        <nav class="inline-flex space-x-1 rounded-md shadow-sm" aria-label="Pagination">
+            <a asp-action="Index" asp-route-page="@(Model.PageIndex - 1)"
+               class="px-3 py-1.5 border border-gray-300 rounded-l-md text-gray-700 bg-white hover:bg-gray-100 @(Model.HasPreviousPage ? "" : "opacity-50 pointer-events-none")">
+                Previous
+            </a>
+
+            @for (int i = 1; i <= Model.TotalPages; i++)
+            {
+                <a asp-action="Index" asp-route-page="@i"
+                   class="px-3 py-1.5 border border-gray-300 text-sm @(i == Model.PageIndex ? "bg-blue-600 text-white" : "text-gray-700 bg-white hover:bg-gray-100")">
+                    @i
+                </a>
+            }
+
+            <a asp-action="Index" asp-route-page="@(Model.PageIndex + 1)"
+               class="px-3 py-1.5 border border-gray-300 rounded-r-md text-gray-700 bg-white hover:bg-gray-100 @(Model.HasNextPage ? "" : "opacity-50 pointer-events-none")">
+                Next
+            </a>
+        </nav>
+    </div>
+</div>

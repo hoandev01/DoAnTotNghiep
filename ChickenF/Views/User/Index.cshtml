@@ -1,0 +1,17 @@
+﻿<tbody class="divide-y divide-gray-200">
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td class="px-4 py-3">@item.FullName</td>
+            <td class="px-4 py-3">@item.Username</td>
+            <td class="px-4 py-3">@item.Email</td>
+            <td class="px-4 py-3">@item.Phone</td>
+            <td class="px-4 py-3">@item.RoleName</td>
+            <td class="px-4 py-3 text-right space-x-3">
+                <a asp-action="Edit" asp-route-id="@item.Id" class="text-indigo-600 hover:text-indigo-900">Sửa</a>
+                <a asp-action="Details" asp-route-id="@item.Id" class="text-gray-600 hover:text-gray-900">Chi tiết</a>
+                <a asp-action="Delete" asp-route-id="@item.Id" class="text-red-600 hover:text-red-900">Xóa</a>
+            </td>
+        </tr>
+    }
+</tbody>
