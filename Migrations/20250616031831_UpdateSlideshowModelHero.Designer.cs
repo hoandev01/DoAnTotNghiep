@@ -442,7 +442,7 @@ namespace ChickenF.Migrations
                         new
                         {
                             Id = 1,
-                            ButtonLink = "/about",
+                            ButtonLink = "/news",
                             ButtonText = "Learn More",
                             DisplayOrder = 1,
                             ImageUrl = "/Image/slide1.jpg",

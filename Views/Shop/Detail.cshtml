@@ -99,7 +99,7 @@
                 <!-- Info -->
                 <div class="col-md-6">
                     <h2 class="mb-3">@Model.ProductName</h2>
-                    <p><strong>Price per unit:</strong> <span class="price-text">@Model.Price.ToString("N0") VND</span></p>
+                    <p><strong>Price per unit(VND):</strong> <span class="price-text">@Model.Price.ToString("N0", System.Globalization.CultureInfo.InvariantCulture)</span></p>
                     <p>
                         <strong>Stock:</strong>
                         <span class="@(isOutOfStock ? "text-danger fw-semibold" : "text-success fw-semibold")">@Model.ProductStock</span>
@@ -145,7 +145,7 @@
                             <input type="hidden" name="quantity" id="quantityInput" />
 
                             <div class="mb-4">
-                                <label for="totalPriceInput" class="form-label">Total Price</label>
+                                <label for="totalPriceInput" class="form-label">Total Price(VND)</label>
                                 <input type="text" id="totalPriceInput" class="form-control" readonly />
                             </div>
 
@@ -196,10 +196,8 @@
                     else if (quantity >= 50) discount = 0.05;
 
                     const totalPrice = quantity * pricePerUnit * (1 - discount);
-                    $('#totalPriceInput').val(totalPrice.toLocaleString('vi-VN', {
-                        style: 'currency',
-                        currency: 'VND'
-                    }));
+                    $('#totalPriceInput').val(totalPrice.toLocaleString('en-US') );
+
                     $('#quantityInput').val(quantity);
                 }
 

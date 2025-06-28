@@ -24,9 +24,9 @@
             <tr>
                 <th>Image</th>
                 <th>Name Of Product</th>
-                <th>Price</th>
+                <th>Price(VND)</th>
                 <th>Amounts</th>
-                <th>Total</th>
+                <th>Totals(VND)</th>
             </tr>
         </thead>
         <tbody>
@@ -40,16 +40,18 @@
                     </td>
 
                     <td>@detail.Product.ProductName</td>
-                    <td>@detail.OrderDetailPrice.ToString("N0") VNĐ</td>
+                    <td>@detail.OrderDetailPrice.ToString("N0", CultureInfo.InvariantCulture)</td>
                     <td>@detail.OrderDetailQuantity</td>
-                    <td>@((detail.OrderDetailPrice * detail.OrderDetailQuantity).ToString("N0")) VNĐ</td>
+                    <td>@((detail.OrderDetailPrice * detail.OrderDetailQuantity).ToString("N0", CultureInfo.InvariantCulture))</td>
                 </tr>
             }
         </tbody>
     </table>
 
     <div class="text-end">
-        <h4 class="text-danger">Total: @Model.TotalAmount.ToString("N0") VNĐ</h4>
+        <h4 class="text-danger">
+            Total(VND): @Model.TotalAmount.ToString("N0", CultureInfo.InvariantCulture)
+        </h4>
     </div>
 
     <div class="mt-4">

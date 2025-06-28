@@ -11,21 +11,17 @@
         <h1 class="text-2xl font-bold text-gray-800">🐔 Flocks</h1>
 
         <div class="flex items-center gap-3">
-            <!-- Date filter -->
             <form method="get" class="flex items-center gap-2">
-                <input type="date" name="selectedDate" value="@selectedDate.ToString("yyyy-MM-dd")" class="border px-2 py-1 rounded" />
+                <input type="date" name="selectedDate" value="@selectedDate:yyyy-MM-dd" class="border px-2 py-1 rounded" />
                 <button type="submit" class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 text-sm">Filter by Date</button>
             </form>
 
-            <!-- Add new -->
-            <a asp-action="Create" class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700 text-sm shadow">
-                + Add New
-            </a>
+            <a asp-action="Create" class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700 text-sm shadow">+ Add New</a>
         </div>
     </div>
 
     <div class="overflow-auto bg-white shadow rounded-2xl">
-        <table class="min-w-full divide-y divide-gray-200 text-sm text-center">
+        <table class="min-w-full divide-y divide-gray-200 text-sm text-center" id="flockTable">
             <thead class="bg-gray-100 text-gray-700 uppercase">
                 <tr>
                     <th class="px-4 py-3">Flock Name</th>
@@ -45,37 +41,35 @@
                 @foreach (var vm in Model)
                 {
                     var flock = vm.Flock;
-                    string highlightClass = "";
 
-                    if (vm.StatusMessage.Contains("✅"))
+                    string rowBg = vm.CurrentStageName switch
                     {
-                        highlightClass = "bg-green-50 font-semibold";
-                    }
-                    else if (vm.StatusMessage.Contains("⏳") || vm.StatusMessage.Contains("📌"))
-                    {
-                        highlightClass = "bg-yellow-50";
-                    }
-                    else if (vm.StatusMessage.Contains("⚠️"))
-                    {
-                        highlightClass = "bg-red-50";
-                    }
+                        "Ready for Sale" => "bg-green-100",       // ✅ Ready
+                        "Pre-Sale Stage" => "bg-orange-100",       // 🛒 Pre-sale
+                        "Growth Stage" => "bg-yellow-100",         // 🌱 Growth
+                        "Brooding Stage" => "bg-blue-100",         // 🐣 Brooding
+                        "Unknown" or null => "bg-gray-100",
+                        _ => "bg-white"
+                    };
 
-                    <tr class="hover:bg-gray-50 @highlightClass">
+                    <tr class="hover:bg-gray-50 transition @rowBg">
                         <td class="px-3 py-2 font-medium">@flock.FlockName</td>
                         <td class="px-3 py-2">@flock.Category?.CategoryName</td>
                         <td class="px-3 py-2">@flock.Cage?.CageName</td>
                         <td class="px-3 py-2">@flock.FlockQuantity</td>
                         <td class="px-3 py-2">@flock.ChickenSize</td>
-                        <td class="px-3 py-2">@flock.DayIn.ToShortDateString()</td>
+                        <td class="px-3 py-2">@flock.DayIn.ToString("dd/MM/yyyy")</td>
                         <td class="px-3 py-2">@flock.FeedType</td>
                         <td class="px-3 py-2">@flock.Status</td>
-                        <td class="px-3 py-2 text-blue-700 font-semibold">@vm.CurrentStageName</td>
+                        <td class="px-3 py-2 text-blue-800 font-bold">@vm.CurrentStageName</td>
                         <td class="px-3 py-2 text-sm">
-                            @vm.StatusMessage
+                            <span class="inline-block px-2 py-1 bg-white rounded shadow-sm text-gray-800">
+                                @vm.StatusMessage
+                            </span>
                             @if (vm.SuggestedSaleDate != null)
                             {
-                                <div class="text-xs text-green-700 mt-1">
-                                    🐣 Suggested Sale: @vm.SuggestedSaleDate.Value.ToShortDateString()
+                                <div class="text-xs text-green-700 mt-1 italic">
+                                    🐣 Suggested Sale: @vm.SuggestedSaleDate.Value.ToString("dd/MM/yyyy")
                                 </div>
                             }
                         </td>

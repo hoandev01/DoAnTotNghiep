@@ -1,15 +1,31 @@
 ﻿@model ChickenF.Models.Order
 
-<h3>Order #@Model.Id</h3>
-<p>Order Date: @Model.OrderDate.ToString("dd/MM/yyyy")</p>
+@{
+    ViewData["Title"] = "Order Details";
+}
 
-<table class="table">
-    <thead>
+<h3>Order #@Model.Id</h3>
+<p>Order Date: @Model.OrderDate.ToString("dd/MM/yyyy HH:mm")</p>
+
+@if (Model.Status == "Canceled" || Model.Status == "Cancelled")
+{
+    <div class="alert alert-danger">
+        <strong>Status:</strong> Cancelled<br />
+        <strong>Reason:</strong> @Model.CancelReason
+    </div>
+}
+else
+{
+    <p><strong>Status:</strong> @Model.Status</p>
+}
+
+<table class="table table-bordered mt-3">
+    <thead class="thead-light">
         <tr>
             <th>Product</th>
             <th>Qty</th>
-            <th>Price</th>
-            <th>Total</th>
+            <th>Price(VND)</th>
+            <th>Total(VND)</th>
         </tr>
     </thead>
     <tbody>
@@ -18,13 +34,14 @@
             <tr>
                 <td>@item.Product.ProductName</td>
                 <td>@item.OrderDetailQuantity</td>
-                <td>@item.OrderDetailPrice.ToString("N0") VNĐ</td>
-                <td>@((item.OrderDetailQuantity * item.OrderDetailPrice).ToString("N0")) VNĐ</td>
-
+                <td>@item.OrderDetailPrice.ToString("N0", System.Globalization.CultureInfo.InvariantCulture) </td>
+                <td>@((item.OrderDetailQuantity * item.OrderDetailPrice).ToString("N0", System.Globalization.CultureInfo.InvariantCulture)) </td>
             </tr>
         }
     </tbody>
 </table>
+
+<h5 class="mt-3">Total Amount(VND): <span class="text-success">@Model.TotalAmount.ToString("N0", System.Globalization.CultureInfo.InvariantCulture) </span></h5>
 
 <div class="mt-4">
     <a href="@Url.Action("MyOrders", "User")" class="btn btn-secondary">

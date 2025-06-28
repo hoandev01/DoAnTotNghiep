@@ -20,7 +20,7 @@
                 <tr>
                     <th>Order ID</th>
                     <th>Order Date</th>
-                    <th>Total Amount</th>
+                    <th>Total Amount(VND)</th>
                     <th>Status</th>
                     <th>Details</th>
                     <th>Actions</th>
@@ -32,7 +32,7 @@
                     <tr>
                         <td>@order.Id</td>
                         <td>@order.OrderDate.ToString("dd/MM/yyyy HH:mm")</td>
-                        <td>@order.TotalAmount.ToString("N0") VNĐ</td>
+                        <td>@order.TotalAmount.ToString("N0", System.Globalization.CultureInfo.InvariantCulture)</td>
                         <td>
                             @if (order.Status == OrderStatus.Cancelled)
                             {

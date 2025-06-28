@@ -59,9 +59,9 @@
                             <td class="px-4 py-2">@item.Flock?.Cage?.CageName </td>
                             <td class="px-4 py-2">@item.TotalRaised</td>
                             <td class="px-4 py-2">@item.TotalSold</td>
-                            <td class="px-4 py-2 text-green-600 font-medium">@item.TotalRevenue.ToString("N0") ₫</td>
-                            <td class="px-4 py-2 text-red-600">@item.TotalFeedCost.ToString("N0") ₫</td>
-                            <td class="px-4 py-2 font-semibold">@item.Profit.ToString("N0") ₫</td>
+                            <td class="px-4 py-2 text-green-600 font-medium">@item.TotalRevenue.ToString("N0", System.Globalization.CultureInfo.InvariantCulture) ₫</td>
+                            <td class="px-4 py-2 text-red-600">@item.TotalFeedCost.ToString("N0", System.Globalization.CultureInfo.InvariantCulture) ₫</td>
+                            <td class="px-4 py-2 font-semibold">@item.Profit.ToString("N0", System.Globalization.CultureInfo.InvariantCulture) ₫</td>
                             <td class="px-4 py-2">@item.ReportGeneratedAt.ToString("dd/MM/yyyy")</td>
                         </tr>
                     }

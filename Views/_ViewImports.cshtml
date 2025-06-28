@@ -1,4 +1,10 @@
 ﻿@using ChickenF
 @using ChickenF.Models
 @using Microsoft.AspNetCore.Mvc.Rendering
+@using System.Globalization
+
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("en-US");
+    CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo("en-US");
+}

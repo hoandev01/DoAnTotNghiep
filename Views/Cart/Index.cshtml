@@ -34,9 +34,9 @@
                 <thead class="table-light">
                     <tr>
                         <th>Product</th>
-                        <th>Price</th>
+                        <th>Price(VND)</th>
                         <th>Amounts</th>
-                        <th>Totals</th>
+                        <th>Totals(VND)</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -50,14 +50,14 @@
                                     <span>@item.Product.ProductName</span>
                                 </div>
                             </td>
-                            <td>@item.Product.Price.ToString("N0") VNĐ</td>
+                            <td>@item.Product.Price.ToString("N0", System.Globalization.CultureInfo.InvariantCulture) </td>
                             <td style="max-width: 140px;">
                                 <input type="number"
                                        value="@item.CartItemQuantity"
                                        class="form-control text-center"
                                        readonly disabled />
                             </td>
-                            <td>@((item.Product.Price * item.CartItemQuantity).ToString("N0")) VNĐ</td>
+                            <td>@((item.Product.Price * item.CartItemQuantity).ToString("N0", System.Globalization.CultureInfo.InvariantCulture)) </td>
                             <td>
                                 <form asp-action="RemoveFromCart" method="post" onsubmit="return confirmDelete();">
                                     <input type="hidden" name="cartItemId" value="@item.Id" />
@@ -75,7 +75,7 @@
         <div class="d-flex justify-content-end mt-4">
             <div class="text-end">
                 <h4 class="fw-bold">
-                    Totals: @Model.Sum(item => item.Product.Price * item.CartItemQuantity).ToString("N0") VNĐ
+                    Totals(VND): @Model.Sum(item => item.Product.Price * item.CartItemQuantity).ToString("N0", System.Globalization.CultureInfo.InvariantCulture) 
                 </h4>
                 <a href="@Url.Action("Index", "Checkout")" class="btn btn-success mt-2 px-4 py-2">Checkout</a>
             </div>

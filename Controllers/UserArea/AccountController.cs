@@ -26,7 +26,7 @@ namespace ChickenF.Controllers.UserArea
         {
             int userId = GetLoggedInUserId();
             var user = _context.Users.FirstOrDefault(u => u.Id == userId);
-            if (user == null) return NotFound("Không tìm thấy người dùng.");
+            if (user == null) return NotFound("Can not found user.");
 
             return View("~/Views/User/Profile.cshtml", user);
         }
@@ -58,7 +58,7 @@ namespace ChickenF.Controllers.UserArea
                 user.Password = _passwordHasher.HashPassword(user, model.Password);
 
             _context.SaveChanges();
-            TempData["SuccessMessage"] = "Cập nhật thông tin thành công!";
+            TempData["SuccessMessage"] = "Update information successfully!";
             return RedirectToAction("Profile");
         }
 
@@ -108,6 +108,7 @@ namespace ChickenF.Controllers.UserArea
                     OrderDate = o.OrderDate,
                     Status = o.Status,
                     TotalAmount = o.TotalAmount,
+                    CancelReason = o.CancelReason, // 👈 THÊM DÒNG NÀY
                     OrderDetails = o.OrderDetails
                         .Where(od => od.Product != null)
                         .Select(od => new OrderDetail
@@ -128,6 +129,7 @@ namespace ChickenF.Controllers.UserArea
 
             return View("~/Views/User/OrderDetails.cshtml", order);
         }
+
         [HttpPost("cancelorder/{id}")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CancelOrder(int id)
@@ -158,7 +160,7 @@ namespace ChickenF.Controllers.UserArea
         {
             var claim = User.FindFirst(ClaimTypes.NameIdentifier);
             if (claim == null)
-                throw new UnauthorizedAccessException("Không tìm thấy userId trong claims.");
+                throw new UnauthorizedAccessException("Can not found userid in claim.");
 
             return int.Parse(claim.Value);
         }

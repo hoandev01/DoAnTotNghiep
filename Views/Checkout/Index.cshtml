@@ -26,8 +26,8 @@
                             <tr>
                                 <th>Product</th>
                                 <th>Quantity</th>
-                                <th>Unit Price</th>
-                                <th>Total</th>
+                                <th>Unit Price(VND)</th>
+                                <th>Total(VND)</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -36,13 +36,13 @@
                                 <tr>
                                     <td>@item.Product.ProductName</td>
                                     <td>@item.CartItemQuantity</td>
-                                    <td>@item.Product.Price.ToString("N0") VNĐ</td>
-                                    <td>@($"{item.CartItemQuantity * item.Product.Price:N0} VNĐ")</td>
+                                    <td>@item.Product.Price.ToString("N0", CultureInfo.InvariantCulture)</td>
+                                    <td>@((item.CartItemQuantity * item.Product.Price).ToString("N0", CultureInfo.InvariantCulture))</td>
                                 </tr>
                             }
                             <tr class="table-secondary">
-                                <td colspan="3" class="text-end"><strong>Total:</strong></td>
-                                <td><strong>@total.ToString("N0") VNĐ</strong></td>
+                                <td colspan="3" class="text-end"><strong>Total(VND):</strong></td>
+                                <td><strong>@total.ToString("N0", CultureInfo.InvariantCulture)</strong></td>
                             </tr>
                         </tbody>
                     </table>

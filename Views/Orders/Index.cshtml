@@ -17,7 +17,7 @@
                     <th class="px-4 py-3">Order ID</th>
                     <th class="px-4 py-3">User ID</th>
                     <th class="px-4 py-3">Date Ordered</th>
-                    <th class="px-4 py-3">Total</th>
+                    <th class="px-4 py-3">Total(VND)</th>
                     <th class="px-4 py-3">Status</th>
                     <th class="px-4 py-3">Actions</th>
                 </tr>
@@ -39,7 +39,7 @@
                         <td class="px-4 py-3 font-semibold">@order.Id</td>
                         <td class="px-4 py-3">@order.UserId</td>
                         <td class="px-4 py-3">@order.OrderDate.ToString("dd/MM/yyyy HH:mm")</td>
-                        <td class="px-4 py-3">@order.TotalAmount.ToString("N0") VNĐ</td>
+                        <td class="px-4 py-3">@order.TotalAmount.ToString("N0", System.Globalization.CultureInfo.InvariantCulture)</td>
                         <td class="px-4 py-3">
                             <span class="text-white px-3 py-1 rounded-full text-xs font-semibold @badgeColor">@status</span>
                             @if (status == OrderStatus.Cancelled && !string.IsNullOrEmpty(order.CancelReason))

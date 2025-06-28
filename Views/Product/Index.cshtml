@@ -24,7 +24,7 @@
                 <tr>
                     <th class="px-4 py-3">Product Name</th>
                     <th class="px-4 py-3">Image</th>
-                    <th class="px-4 py-3">Price</th>
+                    <th class="px-4 py-3">Price(VND)</th>
                     <th class="px-4 py-3">Stock</th>
                     <th class="px-4 py-3">Chicken Size</th>
                     <th class="px-4 py-3">Feed Type</th>
@@ -40,7 +40,7 @@
                         <td class="px-4 py-3">
                             <img src="@item.Image" alt="@item.ProductName" class="w-20 h-20 object-cover rounded shadow" />
                         </td>
-                        <td class="px-4 py-3">@item.Price.ToString("N0") VNĐ</td>
+                        <td class="px-4 py-3">@item.Price.ToString("N0", System.Globalization.CultureInfo.InvariantCulture) </td>
                         <td class="px-4 py-3">@item.ProductStock</td>
                         <td class="px-4 py-3">@item.Flock?.ChickenSize</td>
                         <td class="px-4 py-3">@item.Flock?.FeedType</td>

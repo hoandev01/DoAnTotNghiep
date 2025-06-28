@@ -87,7 +87,7 @@ namespace ChickenF.Data
                     Title = "Welcome to Smart Chicken Farm",
                     Subtitle = "Digital Transformation for Poultry",
                     ButtonText = "Learn More",
-                    ButtonLink = "/about",
+                    ButtonLink = "/news",
                     ImageUrl = "/Image/slide1.jpg",
                     IsActive = true,
                     DisplayOrder = 1

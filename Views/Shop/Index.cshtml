@@ -96,7 +96,7 @@
                     </div>
                     <div class="card-body d-flex flex-column">
                         <h5 class="card-title">@product.ProductName</h5>
-                        <p class="card-text text-danger fw-bold">@price.ToString("N0") VND</p>
+                        <p class="card-text text-danger fw-bold">@price.ToString("N0", System.Globalization.CultureInfo.InvariantCulture)</p>
                         <p class="text-muted">Inventory: <strong>@stock</strong></p>
 
                         @if (!isOutOfStock)
@@ -136,7 +136,7 @@
 
                             <div class="text-secondary mb-3">
                                 <div><strong>Quantity:</strong> <span id="quantityDisplay_@product.Id">--</span></div>
-                                <div><strong>Total:</strong> <span id="priceDisplay_@product.Id">--</span></div>
+                                <div><strong>Total(VND):</strong> <span id="priceDisplay_@product.Id">--</span></div>
                             </div>
                         }
 
@@ -164,7 +164,7 @@
 </div>
 
 
-    @section Scripts {
+@section Scripts {
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             const toast = new bootstrap.Toast(document.getElementById('cartToast'));
@@ -185,10 +185,8 @@
                 const total = quantity * price * (1 - discount);
 
                 document.getElementById("quantityDisplay_" + productId).innerText = quantity;
-                document.getElementById("priceDisplay_" + productId).innerText = total.toLocaleString('vi-VN', {
-                    style: 'currency',
-                    currency: 'VND'
-                });
+                document.getElementById("priceDisplay_" + productId).innerText = total.toLocaleString('en-US') ;
+
 
                 select.dataset.calculatedQuantity = quantity;
             }

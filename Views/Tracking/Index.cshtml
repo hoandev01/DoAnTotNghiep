@@ -23,7 +23,7 @@
                     <th class="px-4 py-3">Health</th>
                     <th class="px-4 py-3">Temp (°C)</th>
                     <th class="px-4 py-3">Humidity (%)</th>
-                    <th class="px-4 py-3">Feed (kg)</th>
+                    <th class="px-4 py-3">Feed (VND)</th>
                     <th class="px-4 py-3">Note</th>
                     <th class="px-4 py-3">Actions</th>
                 </tr>
@@ -31,7 +31,16 @@
             <tbody class="divide-y divide-gray-100 text-center">
                 @foreach (var item in Model)
                 {
-                    <tr class="hover:bg-gray-50">
+                    string rowBgColor = item.HealthStatus switch
+                    {
+                        "Stable" => "bg-green-50",
+                        "Good" => "bg-blue-50",
+                        "Slightly Weak" => "bg-yellow-50",
+                        "Weak" => "bg-orange-100",
+                        "Critical" => "bg-red-100",
+                        _ => ""
+                    };
+                    <tr class="hover:bg-gray-100 @rowBgColor transition-colors duration-300">
                         <td class="px-4 py-3">@item.Id</td>
                         <td class="px-4 py-3">@item.Flock?.FlockName</td>
                         <td class="px-4 py-3">@item.TrackingDate.ToString("yyyy-MM-dd")</td>
@@ -42,8 +51,6 @@
                         <td class="px-4 py-3">@item.Note</td>
                         <td class="px-4 py-3">
                             <div class="flex justify-center gap-2 flex-wrap">
-                                <a asp-action="Details" asp-route-id="@item.Id"
-                                   class="bg-blue-500 text-white px-3 py-1 rounded text-xs hover:bg-blue-600">Details</a>
                                 <a asp-action="Edit" asp-route-id="@item.Id"
                                    class="bg-yellow-500 text-white px-3 py-1 rounded text-xs hover:bg-yellow-600">Edit</a>
                                 <a asp-action="Delete" asp-route-id="@item.Id"
@@ -53,6 +60,7 @@
                     </tr>
                 }
             </tbody>
+
         </table>
     </div>
 
