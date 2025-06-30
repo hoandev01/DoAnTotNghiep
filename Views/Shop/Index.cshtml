@@ -96,7 +96,7 @@
                     </div>
                     <div class="card-body d-flex flex-column">
                         <h5 class="card-title">@product.ProductName</h5>
-                        <p class="card-text text-danger fw-bold">@price.ToString("N0", System.Globalization.CultureInfo.InvariantCulture)</p>
+                        <p class="card-text text-danger fw-bold">@price.ToString("N0", System.Globalization.CultureInfo.InvariantCulture) VND</p>
                         <p class="text-muted">Inventory: <strong>@stock</strong></p>
 
                         @if (!isOutOfStock)
