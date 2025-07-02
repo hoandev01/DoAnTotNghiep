@@ -24,12 +24,18 @@
         <table class="min-w-full divide-y divide-gray-200 text-sm text-center" id="flockTable">
             <thead class="bg-gray-100 text-gray-700 uppercase">
                 <tr>
-                    <th class="px-4 py-3">Flock Name</th>
+                    <th class="px-4 py-3">
+                        <a asp-action="Index" asp-route-sortOrder="@ViewBag.NameSort" class="hover:underline">Flock Name</a>
+                    </th>
                     <th class="px-4 py-3">Category</th>
                     <th class="px-4 py-3">Cage</th>
-                    <th class="px-4 py-3">Quantity</th>
+                    <th class="px-4 py-3">
+                        <a asp-action="Index" asp-route-sortOrder="@ViewBag.QuantitySort" class="hover:underline">Quantity</a>
+                    </th>
                     <th class="px-4 py-3">Size</th>
-                    <th class="px-4 py-3">Day In</th>
+                    <th class="px-4 py-3">
+                        <a asp-action="Index" asp-route-sortOrder="@ViewBag.DateSort" class="hover:underline">Day In</a>
+                    </th>
                     <th class="px-4 py-3">Feed Type</th>
                     <th class="px-4 py-3">Flock Status</th>
                     <th class="px-4 py-3">Current Stage</th>
@@ -37,6 +43,7 @@
                     <th class="px-4 py-3">Actions</th>
                 </tr>
             </thead>
+
             <tbody class="divide-y divide-gray-100">
                 @foreach (var vm in Model)
                 {

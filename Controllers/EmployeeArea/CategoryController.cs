@@ -63,12 +63,22 @@ namespace ChickenF.Controllers.EmployeeArea
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("CategoryName")] Category category)
         {
+            // ✅ Kiểm tra trùng lặp tên Category (không phân biệt hoa/thường)
+            bool isDuplicate = await _context.Categories
+                .AnyAsync(c => c.CategoryName.ToLower() == category.CategoryName.ToLower());
+
+            if (isDuplicate)
+            {
+                ModelState.AddModelError("CategoryName", "❌ This category name already exists.");
+            }
+
             if (ModelState.IsValid)
             {
                 _context.Add(category);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
             return View(category);
         }
 

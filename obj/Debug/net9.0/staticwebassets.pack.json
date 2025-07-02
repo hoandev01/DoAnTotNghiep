@@ -205,6 +205,14 @@
       "PackagePath": "staticwebassets\\Image\\noi.jpg"
     },
     {
+      "Id": "D:\\Code\\ChickenF\\wwwroot\\Image\\qr_momo.jpg",
+      "PackagePath": "staticwebassets\\Image\\qr_momo.jpg"
+    },
+    {
+      "Id": "D:\\Code\\ChickenF\\wwwroot\\Image\\qr_nganhang.jpg",
+      "PackagePath": "staticwebassets\\Image\\qr_nganhang.jpg"
+    },
+    {
       "Id": "D:\\Code\\ChickenF\\wwwroot\\Image\\rhode Island Red Small.jpg",
       "PackagePath": "staticwebassets\\Image\\rhode Island Red Small.jpg"
     },

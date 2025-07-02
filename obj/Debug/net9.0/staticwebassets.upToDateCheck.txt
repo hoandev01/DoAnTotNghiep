@@ -110,6 +110,8 @@ wwwroot\Image\Plymouth.jpg
 wwwroot\Image\PlymouthLarge.jpg
 wwwroot\Image\PlymouthMedium.jpg
 wwwroot\Image\Plymouthsmall.jpg
+wwwroot\Image\qr_momo.jpg
+wwwroot\Image\qr_nganhang.jpg
 wwwroot\Image\rhode island red large.png
 wwwroot\Image\Rhode Island Red Medium.jpg
 wwwroot\Image\rhode Island Red Small.jpg

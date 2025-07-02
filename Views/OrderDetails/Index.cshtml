@@ -40,25 +40,54 @@
     </div>
 
     <!-- Pagination -->
-    <div class="mt-6 flex justify-center">
-        <nav class="inline-flex space-x-1 rounded-md shadow-sm" aria-label="Pagination">
-            <a asp-action="Index" asp-route-page="@(Model.PageIndex - 1)"
-               class="px-3 py-1.5 border border-gray-300 rounded-l-md text-gray-700 bg-white hover:bg-gray-100 @(Model.HasPreviousPage ? "" : "opacity-50 pointer-events-none")">
-                Previous
-            </a>
+    @if (Model.TotalPages > 1)
+    {
+        <div class="mt-6 flex justify-center">
+            <nav class="inline-flex items-center space-x-1" aria-label="Pagination">
 
-            @for (int i = 1; i <= Model.TotalPages; i++)
-            {
-                <a asp-action="Index" asp-route-page="@i"
-                   class="px-3 py-1.5 border border-gray-300 text-sm @(i == Model.PageIndex ? "bg-blue-600 text-white" : "text-gray-700 bg-white hover:bg-gray-100")">
-                    @i
+                <!-- First Page -->
+                <a asp-action="Index" asp-route-page="1"
+                   class="px-3 py-1.5 border border-gray-300 rounded-l-md bg-white text-gray-700 hover:bg-gray-100 @(Model.PageIndex == 1 ? "opacity-50 pointer-events-none" : "")">
+                    First
                 </a>
-            }
 
-            <a asp-action="Index" asp-route-page="@(Model.PageIndex + 1)"
-               class="px-3 py-1.5 border border-gray-300 rounded-r-md text-gray-700 bg-white hover:bg-gray-100 @(Model.HasNextPage ? "" : "opacity-50 pointer-events-none")">
-                Next
-            </a>
-        </nav>
-    </div>
+                <!-- Previous -->
+                <a asp-action="Index" asp-route-page="@(Model.PageIndex - 1)"
+                   class="px-3 py-1.5 border border-gray-300 bg-white text-gray-700 hover:bg-gray-100 @(Model.HasPreviousPage ? "" : "opacity-50 pointer-events-none")">
+                    Previous
+                </a>
+
+                @{
+                    int start = Math.Max(1, Model.PageIndex - 4);
+                    int end = Math.Min(Model.TotalPages, start + 9);
+                    if (end - start < 9)
+                    {
+                        start = Math.Max(1, end - 9);
+                    }
+                }
+
+                @for (int i = start; i <= end; i++)
+                {
+                    <a asp-action="Index" asp-route-page="@i"
+                       class="px-3 py-1.5 border border-gray-300 text-sm transition
+                   @(i == Model.PageIndex ? "bg-blue-600 text-white font-semibold" : "text-gray-700 bg-white hover:bg-gray-100")">
+                        @i
+                    </a>
+                }
+
+                <!-- Next -->
+                <a asp-action="Index" asp-route-page="@(Model.PageIndex + 1)"
+                   class="px-3 py-1.5 border border-gray-300 bg-white text-gray-700 hover:bg-gray-100 @(Model.HasNextPage ? "" : "opacity-50 pointer-events-none")">
+                    Next
+                </a>
+
+                <!-- Last Page -->
+                <a asp-action="Index" asp-route-page="@Model.TotalPages"
+                   class="px-3 py-1.5 border border-gray-300 rounded-r-md bg-white text-gray-700 hover:bg-gray-100 @(Model.PageIndex == Model.TotalPages ? "opacity-50 pointer-events-none" : "")">
+                    Last
+                </a>
+            </nav>
+        </div>
+    }
+
 </div>

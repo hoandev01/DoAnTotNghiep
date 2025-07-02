@@ -72,9 +72,26 @@ namespace ChickenF.Controllers.EmployeeArea
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("FlockId,ProductName,Image,Price,ProductStock,DateCreated,ProductDescription")] Product product)
         {
+            // Kiểm tra Flock có tồn tại không
+            var flock = await _context.Flocks.FirstOrDefaultAsync(f => f.Id == product.FlockId);
+            if (flock == null)
+            {
+                ModelState.AddModelError("FlockId", "❌ Flock does not exist.");
+            }
+
+            // ✅ Kiểm tra trùng ProductName trong cùng Flock
+            bool isDuplicate = await _context.Products
+                .AnyAsync(p => p.FlockId == product.FlockId &&
+                               p.ProductName.ToLower() == product.ProductName.ToLower());
+
+            if (isDuplicate)
+            {
+                ModelState.AddModelError("ProductName", "❌ A product with the same name already exists in this flock.");
+            }
+
+            // ✅ Nếu có lỗi → trả về View và load lại dropdown
             if (!ModelState.IsValid)
             {
-                // Ghi log lỗi nếu có
                 foreach (var state in ModelState)
                 {
                     foreach (var error in state.Value.Errors)
@@ -83,27 +100,15 @@ namespace ChickenF.Controllers.EmployeeArea
                     }
                 }
 
-                ViewData["FlockId"] = new SelectList(_context.Flocks, "Id", "FlockName");
-                return View(product);
-            }
-
-            // Kiểm tra FlockId có tồn tại trong DB
-            var flock = await _context.Flocks.FirstOrDefaultAsync(f => f.Id == product.FlockId);
-            if (flock == null)
-            {
-                ModelState.AddModelError("FlockId", "Flock không tồn tại.");
                 ViewData["FlockId"] = new SelectList(_context.Flocks, "Id", "FlockName", product.FlockId);
                 return View(product);
             }
 
-            Console.WriteLine($"FlockId: {product.FlockId}");
-
-            // Không cần gán Flock điều hướng (EF chỉ cần FlockId đúng là đủ)
-            // Nhưng nếu bạn muốn điều hướng Flock trong object, có thể giữ dòng sau:
-            product.Flock = flock;
-
-            // Gán ngày tạo nếu cần
+            // Gán ngày tạo
             product.DateCreated = DateTime.Now;
+
+            // Gán điều hướng nếu cần
+            product.Flock = flock;
 
             _context.Add(product);
             await _context.SaveChangesAsync();

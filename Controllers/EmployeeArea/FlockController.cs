@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using ChickenF.Data; // Thay thế với namespace thực tế cho DbContext
+using ChickenF.Data; 
 using ChickenF.Models;
 using System.Threading.Tasks;
 
@@ -9,7 +9,7 @@ namespace ChickenF.Controllers.EmployeeArea
 {
     public class FlockController : Controller
     {
-        private readonly FarmContext _context; // Thay thế FarmContext với DbContext thực tế của bạn
+        private readonly FarmContext _context; 
 
         public FlockController(FarmContext context)
         {
@@ -17,38 +17,35 @@ namespace ChickenF.Controllers.EmployeeArea
         }
 
         // GET: Flock
-        public async Task<IActionResult> Index(DateTime? selectedDate)
+        public async Task<IActionResult> Index(DateTime? selectedDate, string sortOrder)
         {
             DateTime today = selectedDate ?? DateTime.Today;
             ViewBag.SelectedDate = today;
 
+            // Dùng ViewBag để hỗ trợ đổi chiều sắp xếp
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
+
             var flocks = await _context.Flocks
                 .Include(f => f.Category)
                 .Include(f => f.Cage)
-                .Include(f => f.FlockStages) // <--- thêm luôn include stages
+                .Include(f => f.FlockStages)
                 .ToListAsync();
 
-            var viewModelList = flocks.Select(flock =>
-            {
-                var stages = flock.FlockStages
-                    .OrderBy(fs => fs.StartDate)
-                    .ToList();
-
+            // Logic stage như cũ
+            var viewModelList = flocks.Select(flock => {
+                var stages = flock.FlockStages.OrderBy(fs => fs.StartDate).ToList();
                 string currentStage = "Unknown";
                 string status = "";
                 DateTime? suggestedSaleDate = null;
 
-                var matchedStage = stages.FirstOrDefault(s =>
-                    s.StartDate <= today && today <= s.EndDate);
-
+                var matchedStage = stages.FirstOrDefault(s => s.StartDate <= today && today <= s.EndDate);
                 if (matchedStage != null)
                 {
                     currentStage = matchedStage.StageName;
-
                     if (matchedStage.EndDate.HasValue)
                     {
                         int daysLeft = (matchedStage.EndDate.Value - today).Days;
-
                         if (daysLeft > 0)
                             status = $"⏳ {currentStage} - {daysLeft} day(s) remaining";
                         else if (daysLeft == 0)
@@ -64,18 +61,11 @@ namespace ChickenF.Controllers.EmployeeArea
                 else
                 {
                     var lastStage = stages.OrderByDescending(s => s.EndDate).FirstOrDefault();
-                    if (lastStage != null)
+                    if (lastStage != null && today > lastStage.EndDate)
                     {
-                        if (today > lastStage.EndDate)
-                        {
-                            currentStage = "Ready for Sale";
-                            status = "✅ Ready for market";
-                            suggestedSaleDate = lastStage.EndDate?.AddDays(1);
-                        }
-                        else
-                        {
-                            status = "🕒 Stage not started yet";
-                        }
+                        currentStage = "Ready for Sale";
+                        status = "✅ Ready for market";
+                        suggestedSaleDate = lastStage.EndDate?.AddDays(1);
                     }
                     else
                     {
@@ -92,8 +82,18 @@ namespace ChickenF.Controllers.EmployeeArea
                 };
             }).ToList();
 
+            // ✳️ Áp dụng sắp xếp
+            viewModelList = sortOrder switch
+            {
+                "name_desc" => viewModelList.OrderByDescending(v => v.Flock.FlockName).ToList(),
+                "Date" => viewModelList.OrderBy(v => v.Flock.DayIn).ToList(),
+                "date_desc" => viewModelList.OrderByDescending(v => v.Flock.DayIn).ToList(),
+                _ => viewModelList.OrderBy(v => v.Flock.FlockName).ToList(),
+            };
+
             return View(viewModelList);
         }
+
 
 
 
@@ -119,13 +119,13 @@ namespace ChickenF.Controllers.EmployeeArea
         // GET: Flock/Create
         public IActionResult Create()
         {
+            ViewBag.AllCages = _context.Cages.ToList();
             ViewData["CageId"] = new SelectList(_context.Cages, "Id", "CageName");
             ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "CategoryName");
             return View();
         }
 
-
-
+        //post create flock
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("FlockName,CageId,CategoryId,FlockQuantity,ChickenSize,FeedType,Status,GrowthLevel,FlockNote,DayIn")] Flock flock)
@@ -135,13 +135,60 @@ namespace ChickenF.Controllers.EmployeeArea
                 flock.DayIn = DateTime.Today;
             }
 
+            // ✅ Kiểm tra trùng tên Flock (không phân biệt chữ hoa/thường)
+            bool nameExists = await _context.Flocks
+                .AnyAsync(f => f.FlockName.ToLower() == flock.FlockName.ToLower());
+
+            if (nameExists)
+            {
+                ModelState.AddModelError("FlockName", "❌ This flock name already exists.");
+            }
+
+            // ✅ Lấy thông tin chuồng để tính PSD & Capacity
+            var cage = await _context.Cages.FirstOrDefaultAsync(c => c.Id == flock.CageId);
+            if (cage == null)
+            {
+                ModelState.AddModelError("CageId", "Selected cage does not exist.");
+            }
+            else
+            {
+                // ➤ Tính mật độ nuôi
+                double psd = (double)flock.FlockQuantity / cage.CageArea;
+
+                // ➤ Lấy giới hạn PSD theo loại chuồng
+                double maxPsd = cage.CageType switch
+                {
+                    "Closed" => 15.0,
+                    "Open" => 12.0,
+                    "Semi-open" => 13.0,
+                    "Elevated" => 16.0,
+                    _ => 15.0
+                };
+
+                if (psd > maxPsd)
+                {
+                    ModelState.AddModelError("", $"❌ Overstocked: PSD = {psd:F2} birds/m² in a '{cage.CageType}' cage. Max allowed is {maxPsd}.");
+                }
+
+                // ➤ Kiểm tra vượt Capacity
+                int currentQuantityInCage = await _context.Flocks
+                    .Where(f => f.CageId == cage.Id)
+                    .SumAsync(f => f.FlockQuantity);
+
+                int projectedTotal = currentQuantityInCage + flock.FlockQuantity;
+
+                if (projectedTotal > cage.CageCapacity)
+                {
+                    ModelState.AddModelError("", $"❌ Capacity exceeded: After adding, total birds = {projectedTotal}, but '{cage.CageName}' allows max {cage.CageCapacity}.");
+                }
+            }
+
             if (ModelState.IsValid)
             {
-                // Lưu flock trước để lấy Id
                 _context.Flocks.Add(flock);
                 await _context.SaveChangesAsync();
 
-                // Lấy thông tin thời gian từ Category
+                // ✅ Lấy category để tính các giai đoạn
                 var category = await _context.Categories.FindAsync(flock.CategoryId);
                 if (category == null)
                 {
@@ -194,14 +241,18 @@ namespace ChickenF.Controllers.EmployeeArea
                 _context.FlockStages.AddRange(stages);
                 await _context.SaveChangesAsync();
 
-                TempData["Success"] = "Flock created successfully with stages.";
+                TempData["Success"] = "✅ Flock created successfully with stages.";
                 return RedirectToAction("Index");
             }
 
+            // ❗️Nếu có lỗi → load lại dropdown
+            ViewBag.AllCages = await _context.Cages.ToListAsync();
             ViewData["CageId"] = new SelectList(_context.Cages, "Id", "CageName", flock.CageId);
             ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "CategoryName", flock.CategoryId);
             return View(flock);
         }
+
+
 
 
         [HttpPost]
@@ -300,10 +351,69 @@ namespace ChickenF.Controllers.EmployeeArea
             {
                 try
                 {
+                    // Cập nhật Flock
                     _context.Update(flock);
                     await _context.SaveChangesAsync();
 
-                    // Đồng bộ stock các sản phẩm liên quan
+                    // ✅ Tạo lại FlockStages nếu có thay đổi DayIn hoặc CategoryId
+                    var category = await _context.Categories.FindAsync(flock.CategoryId);
+                    if (category != null)
+                    {
+                        // Xoá các giai đoạn cũ
+                        var oldStages = await _context.FlockStages
+                            .Where(fs => fs.FlockId == flock.Id)
+                            .ToListAsync();
+
+                        _context.FlockStages.RemoveRange(oldStages);
+
+                        // Tính lại giai đoạn mới
+                        var broodingStart = flock.DayIn;
+                        var broodingEnd = broodingStart.AddDays(category.BroodingDays - 1);
+                        var growthEnd = broodingEnd.AddDays(category.GrowthDays);
+                        var preSaleEnd = growthEnd.AddDays(category.PreSaleDays);
+                        var readySaleEnd = preSaleEnd.AddDays(category.ReadyDays);
+
+                        var newStages = new List<FlockStage>
+                {
+                    new FlockStage
+                    {
+                        FlockId = flock.Id,
+                        StageName = "Brooding Stage",
+                        StartDate = broodingStart,
+                        EndDate = broodingEnd,
+                        Note = "Chicks just hatched"
+                    },
+                    new FlockStage
+                    {
+                        FlockId = flock.Id,
+                        StageName = "Growth Stage",
+                        StartDate = broodingEnd.AddDays(1),
+                        EndDate = growthEnd,
+                        Note = "Rapid growth phase"
+                    },
+                    new FlockStage
+                    {
+                        FlockId = flock.Id,
+                        StageName = "Pre-Sale Stage",
+                        StartDate = growthEnd.AddDays(1),
+                        EndDate = preSaleEnd,
+                        Note = "Getting ready for sale"
+                    },
+                    new FlockStage
+                    {
+                        FlockId = flock.Id,
+                        StageName = "Ready for Sale",
+                        StartDate = preSaleEnd.AddDays(1),
+                        EndDate = readySaleEnd,
+                        Note = "Ready for market"
+                    }
+                };
+
+                        _context.FlockStages.AddRange(newStages);
+                        await _context.SaveChangesAsync();
+                    }
+
+                    // ✅ Đồng bộ các sản phẩm liên quan
                     var products = await _context.Products
                         .Where(p => p.FlockId == flock.Id)
                         .ToListAsync();
@@ -315,7 +425,7 @@ namespace ChickenF.Controllers.EmployeeArea
                     }
 
                     await _context.SaveChangesAsync();
-                    TempData["Success"] = "Flock updated and product stocks synchronized.";
+                    TempData["Success"] = "Flock updated, stages recalculated, and product stocks synchronized.";
                 }
                 catch (DbUpdateConcurrencyException)
                 {

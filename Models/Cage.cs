@@ -20,6 +20,6 @@ namespace ChickenF.Models
         public int CageCapacity { get; set; }
 
         [StringLength(100), Display(Name = "CageArea")]
-        public string? CageArea { get; set; } // e.g., "500m2"
+        public float CageArea { get; set; } // e.g., "500m2"
     }
 }

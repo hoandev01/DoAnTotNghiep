@@ -57,12 +57,22 @@ namespace ChickenF.Controllers.EmployeeArea
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("CageName,CageType,CageCapacity,CageArea")] Cage cage)
         {
+            // Kiểm tra xem tên chuồng đã tồn tại chưa (bỏ qua chữ hoa/thường)
+            bool isDuplicate = await _context.Cages
+                .AnyAsync(c => c.CageName.ToLower() == cage.CageName.ToLower());
+
+            if (isDuplicate)
+            {
+                ModelState.AddModelError("CageName", "❌ This cage name already exists. Please choose another name.");
+            }
+
             if (ModelState.IsValid)
             {
                 _context.Add(cage);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
             return View(cage);
         }
 

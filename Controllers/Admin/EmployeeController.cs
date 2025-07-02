@@ -38,9 +38,41 @@ namespace ChickenF.Controllers.EmployeeArea
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("FullName,Username,Password,Phone,Email")] Employee employee)
         {
+            // ✅ Chỉ Admin được phép tạo
             if (!User.IsInRole("Admin"))
                 return View("~/Views/Shared/Unauthorized.cshtml");
 
+            // ✅ Kiểm tra trùng Username
+            bool usernameExists = await _context.Users
+                .AnyAsync(u => u.Username.ToLower() == employee.Username.ToLower());
+            if (usernameExists)
+            {
+                ModelState.AddModelError("Username", "❌ This username is already taken.");
+            }
+
+            // ✅ Kiểm tra trùng Email
+            if (!string.IsNullOrWhiteSpace(employee.Email))
+            {
+                bool emailExists = await _context.Users
+                    .AnyAsync(u => u.Email.ToLower() == employee.Email.ToLower());
+                if (emailExists)
+                {
+                    ModelState.AddModelError("Email", "❌ This email is already in use.");
+                }
+            }
+
+            // ✅ Kiểm tra trùng số điện thoại
+            if (!string.IsNullOrWhiteSpace(employee.Phone))
+            {
+                bool phoneExists = await _context.Users
+                    .AnyAsync(u => u.Phone == employee.Phone);
+                if (phoneExists)
+                {
+                    ModelState.AddModelError("Phone", "❌ This phone number is already registered.");
+                }
+            }
+
+            // ✅ Nếu hợp lệ → băm mật khẩu và lưu
             if (ModelState.IsValid)
             {
                 var passwordHasher = new PasswordHasher<User>();
@@ -54,6 +86,7 @@ namespace ChickenF.Controllers.EmployeeArea
 
             return View(employee);
         }
+
 
         public async Task<IActionResult> Edit(int? id)
         {

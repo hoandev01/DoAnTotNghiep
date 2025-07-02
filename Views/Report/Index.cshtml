@@ -11,6 +11,11 @@
 <div class="px-6 py-8">
     <h2 class="text-2xl font-bold text-blue-600 mb-6">📊 Reports & Analytics</h2>
 
+    <!-- KPI Overview Cards -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8" id="kpiCards">
+        <!-- Filled by JS -->
+    </div>
+
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <!-- Top Selling Products -->
         <div class="bg-white shadow-md rounded-2xl p-6">
@@ -54,9 +59,9 @@
                     @foreach (var item in Model)
                     {
                         <tr>
-                            <td class="px-4 py-2">@item.Flock?.FlockName </td>
-                            <td class="px-4 py-2">@item.Flock?.Category?.CategoryName </td>
-                            <td class="px-4 py-2">@item.Flock?.Cage?.CageName </td>
+                            <td class="px-4 py-2">@item.Flock?.FlockName</td>
+                            <td class="px-4 py-2">@item.Flock?.Category?.CategoryName</td>
+                            <td class="px-4 py-2">@item.Flock?.Cage?.CageName</td>
                             <td class="px-4 py-2">@item.TotalRaised</td>
                             <td class="px-4 py-2">@item.TotalSold</td>
                             <td class="px-4 py-2 text-green-600 font-medium">@item.TotalRevenue.ToString("N0", System.Globalization.CultureInfo.InvariantCulture) ₫</td>
@@ -75,6 +80,30 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <script>
+        // Fetch KPI Cards
+        fetch('/Admin/Report/GetDashboardKPIs')
+            .then(res => res.json())
+            .then(data => {
+                const kpiContainer = document.getElementById('kpiCards');
+                kpiContainer.innerHTML = `
+                    <div class="bg-green-100 text-green-800 p-4 rounded-xl shadow">
+                        <div class="font-semibold text-sm">Total Revenue</div>
+                        <div class="text-lg font-bold">${data.totalRevenue.toLocaleString()} ₫</div>
+                    </div>
+                    <div class="bg-blue-100 text-blue-800 p-4 rounded-xl shadow">
+                        <div class="font-semibold text-sm">Total Profit</div>
+                        <div class="text-lg font-bold">${data.totalProfit.toLocaleString()} ₫</div>
+                    </div>
+                    <div class="bg-yellow-100 text-yellow-800 p-4 rounded-xl shadow">
+                        <div class="font-semibold text-sm">Total Orders</div>
+                        <div class="text-lg font-bold">${data.totalOrders}</div>
+                    </div>
+                    <div class="bg-purple-100 text-purple-800 p-4 rounded-xl shadow">
+                        <div class="font-semibold text-sm">Active Flocks</div>
+                        <div class="text-lg font-bold">${data.activeFlocks}</div>
+                    </div>`;
+            });
+
         // Top Selling Products
         fetch('/Admin/Report/GetTopSellingProducts')
             .then(res => res.json())
@@ -98,9 +127,7 @@
                     options: {
                         responsive: true,
                         scales: {
-                            y: {
-                                beginAtZero: true
-                            }
+                            y: { beginAtZero: true }
                         }
                     }
                 });
@@ -162,7 +189,7 @@
                 });
             });
 
-        // Flock Chart bằng Razor Model
+        // Flock Profit Chart from Razor Model
         const flockLabels = @Html.Raw(Json.Serialize(flockLabels));
         const revenues = @Html.Raw(Json.Serialize(revenues));
         const feedCosts = @Html.Raw(Json.Serialize(feedCosts));

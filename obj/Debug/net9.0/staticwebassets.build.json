@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Wl3JNCv0izdZO0c2qi1xsqZ1Mj7kH4JevtopX5k2/Ss=",
+  "Hash": "F1KV8I46oSkyPuXYsacEH4/jjNcYGRfhKOJBNMKj4zw=",
   "Source": "ChickenF",
   "BasePath": "_content/ChickenF",
   "Mode": "Default",
@@ -2451,6 +2451,48 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\Image\\Plymouthsmall.jpg"
+    },
+    {
+      "Identity": "D:\\Code\\ChickenF\\wwwroot\\Image\\qr_momo.jpg",
+      "SourceId": "ChickenF",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Code\\ChickenF\\wwwroot\\",
+      "BasePath": "_content/ChickenF",
+      "RelativePath": "Image/qr_momo#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "fd3vyasvp6",
+      "Integrity": "LZNHt5i2Sv7kbKUj18PRJgB/mCBUzOeneYuxOAmdRgY=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Image\\qr_momo.jpg"
+    },
+    {
+      "Identity": "D:\\Code\\ChickenF\\wwwroot\\Image\\qr_nganhang.jpg",
+      "SourceId": "ChickenF",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Code\\ChickenF\\wwwroot\\",
+      "BasePath": "_content/ChickenF",
+      "RelativePath": "Image/qr_nganhang#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "ndtjvgcght",
+      "Integrity": "hWUfQsz/vLrCt3Jl1vsvqp0karn01KPcl8y8mcMBHOU=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Image\\qr_nganhang.jpg"
     },
     {
       "Identity": "D:\\Code\\ChickenF\\wwwroot\\Image\\rhode island red large.png",
@@ -9661,6 +9703,170 @@
         {
           "Name": "integrity",
           "Value": "sha256-wo3Vv6+hHw317bzWG019jSRuCEKuoRaJZQmcGkA8gEg="
+        }
+      ]
+    },
+    {
+      "Route": "Image/qr_momo.fd3vyasvp6.jpg",
+      "AssetFile": "D:\\Code\\ChickenF\\wwwroot\\Image\\qr_momo.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "115750"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"LZNHt5i2Sv7kbKUj18PRJgB/mCBUzOeneYuxOAmdRgY=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 02 Jul 2025 20:55:42 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "fd3vyasvp6"
+        },
+        {
+          "Name": "label",
+          "Value": "Image/qr_momo.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-LZNHt5i2Sv7kbKUj18PRJgB/mCBUzOeneYuxOAmdRgY="
+        }
+      ]
+    },
+    {
+      "Route": "Image/qr_momo.jpg",
+      "AssetFile": "D:\\Code\\ChickenF\\wwwroot\\Image\\qr_momo.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "115750"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"LZNHt5i2Sv7kbKUj18PRJgB/mCBUzOeneYuxOAmdRgY=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 02 Jul 2025 20:55:42 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-LZNHt5i2Sv7kbKUj18PRJgB/mCBUzOeneYuxOAmdRgY="
+        }
+      ]
+    },
+    {
+      "Route": "Image/qr_nganhang.jpg",
+      "AssetFile": "D:\\Code\\ChickenF\\wwwroot\\Image\\qr_nganhang.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "177171"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"hWUfQsz/vLrCt3Jl1vsvqp0karn01KPcl8y8mcMBHOU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 02 Jul 2025 20:55:32 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-hWUfQsz/vLrCt3Jl1vsvqp0karn01KPcl8y8mcMBHOU="
+        }
+      ]
+    },
+    {
+      "Route": "Image/qr_nganhang.ndtjvgcght.jpg",
+      "AssetFile": "D:\\Code\\ChickenF\\wwwroot\\Image\\qr_nganhang.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "177171"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"hWUfQsz/vLrCt3Jl1vsvqp0karn01KPcl8y8mcMBHOU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 02 Jul 2025 20:55:32 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "ndtjvgcght"
+        },
+        {
+          "Name": "label",
+          "Value": "Image/qr_nganhang.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-hWUfQsz/vLrCt3Jl1vsvqp0karn01KPcl8y8mcMBHOU="
         }
       ]
     },
