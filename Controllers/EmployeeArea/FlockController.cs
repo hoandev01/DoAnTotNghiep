@@ -480,52 +480,37 @@ namespace ChickenF.Controllers.EmployeeArea
             if (flock == null)
                 return NotFound();
 
-            // 1. Xóa FlockStages
-            var flockStages = await _context.FlockStages
-                .Where(fs => fs.FlockId == id)
-                .ToListAsync();
-            _context.FlockStages.RemoveRange(flockStages);
-
-            
-
-            // 3. Xóa Trackings
-            var trackings = await _context.Trackings
-                .Where(t => t.FlockId == id)
-                .ToListAsync();
-            _context.Trackings.RemoveRange(trackings);
-
-            // 4. Lấy tất cả sản phẩm thuộc flock
+            // Lấy sản phẩm liên quan
             var products = await _context.Products
                 .Where(p => p.FlockId == id)
                 .ToListAsync();
 
             var productIds = products.Select(p => p.Id).ToList();
 
-            
-            
+            // x Nếu có sản phẩm đã giao → không cho xoá
+            var hasDeliveredOrders = await _context.OrderDetails
+                .Where(od => productIds.Contains(od.ProductId) && od.Order.Status == "Delivered")
+                .AnyAsync();
 
-            // 🔹 Thêm: Xóa CartItems chứa các product này (nếu dùng giỏ hàng)
-            var cartItems = await _context.CartItems
-                .Where(ci => productIds.Contains(ci.ProductId))
-                .ToListAsync();
-            _context.CartItems.RemoveRange(cartItems);
+            if (hasDeliveredOrders)
+            {
+                TempData["Error"] = "⚠ Cannot delete this flock because some related products have been delivered to customers.";
+                return RedirectToAction(nameof(Delete), new { id });
+            }
 
-            // 5. Lấy tất cả OrderDetail liên quan tới sản phẩm đó
-            var orderDetails = await _context.OrderDetails
-                .Where(od => productIds.Contains(od.ProductId))
-                .ToListAsync();
-
-            // 6. Ghi nhận danh sách OrderId bị ảnh hưởng
+            // Xoá các bản ghi liên quan
+            var flockStages = await _context.FlockStages.Where(fs => fs.FlockId == id).ToListAsync();
+            var trackings = await _context.Trackings.Where(t => t.FlockId == id).ToListAsync();
+            var cartItems = await _context.CartItems.Where(ci => productIds.Contains(ci.ProductId)).ToListAsync();
+            var orderDetails = await _context.OrderDetails.Where(od => productIds.Contains(od.ProductId)).ToListAsync();
             var affectedOrderIds = orderDetails.Select(od => od.OrderId).Distinct().ToList();
 
-            // 7. Xóa Orders không còn OrderDetail nào (sau khi trừ đi những cái sắp xóa)
             foreach (var orderId in affectedOrderIds)
             {
-                var stillHasDetails = await _context.OrderDetails
-                    .Where(od => od.OrderId == orderId && !orderDetails.Contains(od))
-                    .AnyAsync();
+                var stillHasOtherDetails = await _context.OrderDetails
+                    .AnyAsync(od => od.OrderId == orderId && !productIds.Contains(od.ProductId));
 
-                if (!stillHasDetails)
+                if (!stillHasOtherDetails)
                 {
                     var order = await _context.Orders.FindAsync(orderId);
                     if (order != null)
@@ -533,19 +518,16 @@ namespace ChickenF.Controllers.EmployeeArea
                 }
             }
 
-            // 8. Xóa OrderDetails
+            _context.FlockStages.RemoveRange(flockStages);
+            _context.Trackings.RemoveRange(trackings);
+            _context.CartItems.RemoveRange(cartItems);
             _context.OrderDetails.RemoveRange(orderDetails);
-
-            // 9. Xóa Products
             _context.Products.RemoveRange(products);
-
-            // 10. Xóa Flock
             _context.Flocks.Remove(flock);
 
-            // 11. Lưu thay đổi
             await _context.SaveChangesAsync();
 
-            TempData["Success"] = "Flock and all related data deleted successfully.";
+            TempData["Success"] = "✅ Flock and related data deleted successfully.";
             return RedirectToAction(nameof(Index));
         }
 
