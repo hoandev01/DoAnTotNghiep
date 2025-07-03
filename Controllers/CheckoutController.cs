@@ -67,7 +67,7 @@ namespace ChickenF.Controllers
 
                 case "bank":
                 case "momo":
-                    string qrImage = request.PaymentMethod == "bank" ? "/Image/qr_nganhang.jpg" : "/Image/qr_momo.png";
+                    string qrImage = request.PaymentMethod == "bank" ? "/Image/qr_nganhang.jpg" : "/Image/qr_momo.jpg";
                     return Json(new { success = true, showQR = true, qrImageUrl = qrImage });
 
                 default:
