@@ -99,6 +99,24 @@
                 <!-- Info -->
                 <div class="col-md-6">
                     <h2 class="mb-3">@Model.ProductName</h2>
+
+                    <!-- ✅ Flock Info Card -->
+                    <div class="card border-0 shadow-sm mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title text-primary">
+                                <i class="bi bi-info-circle-fill me-2"></i>Flock Information
+                            </h5>
+                            <ul class="list-unstyled mb-0">
+                                <li><i class="bi bi-award text-warning me-2"></i><strong>Breed (Category):</strong> @Model.Flock?.Category?.CategoryName</li>
+                                <li><i class="bi bi-arrows-expand text-success me-2"></i><strong>Chicken Size:</strong> @Model.Flock?.ChickenSize</li>
+                                <li><i class="bi bi-house-door-fill text-secondary me-2"></i><strong>Cage:</strong> @Model.Flock?.Cage?.CageName (@Model.Flock?.Cage?.CageType)</li>
+                                <li><i class="bi bi-egg-fill text-danger me-2"></i><strong>Feed Type:</strong> @Model.Flock?.FeedType</li>
+                                <li><i class="bi bi-calendar-event text-info me-2"></i><strong>Date In:</strong> @Model.Flock?.DayIn.ToString("dd/MM/yyyy")</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- End Flock Info -->
+
                     <p><strong>Price per unit(VND):</strong> <span class="price-text">@Model.Price.ToString("N0", System.Globalization.CultureInfo.InvariantCulture)</span></p>
                     <p>
                         <strong>Stock:</strong>
@@ -167,6 +185,7 @@
         </div>
     </div>
 </div>
+
 
 <!-- Toast Notification -->
 <div class="toast-container position-fixed top-0 end-0 p-3">

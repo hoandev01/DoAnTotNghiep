@@ -59,7 +59,12 @@ namespace ChickenF.Controllers
         [Route("/shop/{id}", Name = "shop.detail")]
         public async Task<IActionResult> Detail(int id)
         {
-            var product = await _context.Products.FindAsync(id);
+            var product = await _context.Products
+                .Include(p => p.Flock)
+                .ThenInclude(f => f.Category)
+            .Include(p => p.Flock.Cage)
+            .FirstOrDefaultAsync(p => p.Id == id);
+
             if (product == null)
             {
                 return NotFound();
