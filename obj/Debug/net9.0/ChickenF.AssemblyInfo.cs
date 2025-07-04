@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ChickenF")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8ba421d96d1ea2ca2405304cdd1ac92ad0c7a75b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f66df7f020b8633db2b390fc0c230b1995071c09")]
 [assembly: System.Reflection.AssemblyProductAttribute("ChickenF")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ChickenF")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
