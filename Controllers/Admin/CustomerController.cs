@@ -18,13 +18,25 @@ namespace ChickenF.Controllers.EmployeeArea
         // ================================
         // GET: List Customers
         // ================================
-        public async Task<IActionResult> Index(int page = 1)
+        public async Task<IActionResult> Index(int page = 1, string searchString = "")
         {
             if (!User.IsInRole("Admin"))
                 return View("~/Views/Shared/Unauthorized.cshtml");
 
+            ViewBag.CurrentFilter = searchString;
             int pageSize = 5;
-            var customers = _context.Customers.OrderBy(c => c.FullName);
+
+            var customers = _context.Customers.AsQueryable();
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                customers = customers.Where(c =>
+                    c.FullName.Contains(searchString) ||
+                    c.Username.Contains(searchString) ||
+                    c.Email.Contains(searchString));
+            }
+
+            customers = customers.OrderBy(c => c.FullName);
             var paginatedList = await PaginatedList<Customer>.CreateAsync(customers, page, pageSize);
             return View(paginatedList);
         }

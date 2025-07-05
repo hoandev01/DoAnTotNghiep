@@ -1,8 +1,8 @@
 ﻿@model List<ChickenF.Models.NewsArticle>
-
 @{
     ViewData["Title"] = "News";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    string currentFilter = ViewBag.CurrentFilter as string ?? "";
 }
 
 <style>
@@ -12,7 +12,7 @@
     }
 
     .card-text {
-        min-height: 48px; /* giữ tóm tắt đều nhau */
+        min-height: 48px;
     }
 
     .card-footer {
@@ -28,6 +28,15 @@
 
 <div class="container py-5">
     <h2 class="text-primary mb-4">📰 New from farm</h2>
+
+    <!-- Search Form -->
+    <form method="get" class="mb-4">
+        <div class="input-group">
+            <input type="text" name="searchString" value="@currentFilter"
+                   class="form-control" placeholder="🔍 Search news..." />
+            <button class="btn btn-outline-primary" type="submit">Search</button>
+        </div>
+    </form>
 
     @if (!Model.Any())
     {

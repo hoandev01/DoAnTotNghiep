@@ -14,28 +14,29 @@ namespace ChickenF.Controllers.EmployeeArea
         {
             _context = context;
         }
-
-        // GET: /FlockStage
-        public async Task<IActionResult> Index()
+        //get method
+        public async Task<IActionResult> Index(string searchString = "")
         {
             var today = DateTime.Today;
+            ViewBag.CurrentFilter = searchString;
 
-            var stages = await _context.FlockStages
+            var stages = _context.FlockStages
                 .Include(fs => fs.Flock)
+                .AsQueryable();
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                stages = stages.Where(fs =>
+                    fs.Flock.FlockName.Contains(searchString) ||
+                    fs.StageName.Contains(searchString));
+            }
+
+            var list = await stages
                 .OrderBy(fs => fs.FlockId)
                 .ThenBy(fs => fs.StartDate)
                 .ToListAsync();
 
-            // Đánh dấu stage hiện tại
-            foreach (var stage in stages)
-            {
-                if (stage.StartDate <= today && today <= stage.EndDate)
-                {
-                    stage.Note += " [Current Stage]";
-                }
-            }
-
-            return View(stages);
+            return View(list);
         }
 
 

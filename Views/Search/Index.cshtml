@@ -1,0 +1,21 @@
+﻿@model List<SearchResultViewModel>
+
+<h3>Search Results</h3>
+
+@if (!Model.Any())
+{
+    <p>No results found.</p>
+}
+else
+{
+    <ul class="list-group">
+        @foreach (var item in Model)
+        {
+            <li class="list-group-item">
+                <h5>@item.Title</h5>
+                <p>@item.Description</p>
+                <a asp-controller="@item.Controller" asp-action="@item.Action" asp-route-id="@(item.RouteValues as dynamic)?.id">View</a>
+            </li>
+        }
+    </ul>
+}

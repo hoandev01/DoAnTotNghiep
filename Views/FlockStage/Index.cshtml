@@ -2,17 +2,27 @@
 @{
     ViewData["Title"] = "Flock Stages Overview";
     Layout = "~/Views/Shared/_LayoutEmployee.cshtml";
+    string currentFilter = ViewBag.CurrentFilter as string ?? "";
 }
 
 <div class="px-6 py-8">
-    <div class="flex justify-between items-center mb-6">
+    <div class="flex justify-between items-center mb-4">
         <h1 class="text-2xl font-bold text-gray-800">📊 Flock Stages Overview</h1>
-        <div class="space-x-2">
-            <button onclick="filterStage('all')" class="bg-gray-300 hover:bg-gray-400 text-gray-800 px-4 py-1 rounded">All</button>
-            <button onclick="filterStage('current')" class="bg-blue-300 hover:bg-blue-400 text-blue-900 px-4 py-1 rounded">🔥 Current</button>
-            <button onclick="filterStage('upcoming')" class="bg-purple-300 hover:bg-purple-400 text-purple-900 px-4 py-1 rounded">🚀 Upcoming</button>
-            <button onclick="filterStage('ended')" class="bg-orange-300 hover:bg-orange-400 text-orange-900 px-4 py-1 rounded">⏳ Ended</button>
-        </div>
+
+        <form method="get" class="flex gap-2">
+            <input type="text" name="searchString" value="@currentFilter"
+                   placeholder="🔍 Search by flock or stage" class="border px-3 py-1 rounded text-sm" />
+            <button type="submit" class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 text-sm">
+                Search
+            </button>
+        </form>
+    </div>
+
+    <div class="mb-4 space-x-2">
+        <button onclick="filterStage('all')" class="bg-gray-300 hover:bg-gray-400 text-gray-800 px-4 py-1 rounded">All</button>
+        <button onclick="filterStage('current')" class="bg-blue-300 hover:bg-blue-400 text-blue-900 px-4 py-1 rounded">🔥 Current</button>
+        <button onclick="filterStage('upcoming')" class="bg-purple-300 hover:bg-purple-400 text-purple-900 px-4 py-1 rounded">🚀 Upcoming</button>
+        <button onclick="filterStage('ended')" class="bg-orange-300 hover:bg-orange-400 text-orange-900 px-4 py-1 rounded">⏳ Ended</button>
     </div>
 
     <div class="overflow-x-auto shadow bg-white rounded-xl">

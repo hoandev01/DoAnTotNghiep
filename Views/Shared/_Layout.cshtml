@@ -190,6 +190,7 @@
                         
                     </ul>
 
+
                     @if (User.Identity?.IsAuthenticated == true && !string.IsNullOrEmpty(Context.Session.GetString("_Name")))
                     {
                         <div class="dropdown">
@@ -213,6 +214,7 @@
                         </a>
                     }
                 </div>
+
             </div>
         </nav>
     </header>

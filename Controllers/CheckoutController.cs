@@ -99,69 +99,69 @@ namespace ChickenF.Controllers
 
         private async Task<IActionResult> HandleCashPayment(List<CartItem> cartItems, int userId)
         {
-            // Dictionary để lưu lại thông tin sản phẩm đã truy vấn (để dùng lại không cần truy DB nữa)
-            var productMap = new Dictionary<int, Product>();
-
-            foreach (var item in cartItems)
+            using var transaction = await _context.Database.BeginTransactionAsync(System.Data.IsolationLevel.Serializable);
+            try
             {
-                var product = await _context.Products
-                    .Include(p => p.Flock)
-                    .FirstOrDefaultAsync(p => p.Id == item.ProductId);
+                var productMap = new Dictionary<int, Product>();
 
-                if (product == null)
+                foreach (var item in cartItems)
                 {
-                    return JsonError($"Product does not exist (ID: {item.ProductId}).");
+                    var product = await _context.Products
+                        .Include(p => p.Flock)
+                        .FirstOrDefaultAsync(p => p.Id == item.ProductId);
+
+                    if (product == null)
+                        return JsonError($"❌ Product does not exist (ID: {item.ProductId}).");
+
+                    int availableStock = product.ProductStock - product.ReservedQuantity;
+                    if (item.CartItemQuantity > availableStock)
+                        return JsonError($"❌ Not enough stock for {product.ProductName}. Available: {availableStock}");
+
+                    // ✅ Giữ hàng
+                    product.ReservedQuantity += item.CartItemQuantity;
+
+                    // Nếu hết hàng thật → cập nhật OutOfStock
+                    if (availableStock == item.CartItemQuantity && product.OutOfStockAt == null)
+                        product.OutOfStockAt = DateTime.Now;
+
+                    await UpdateFlockStatusIfCompleted(product.FlockId);
+
+                    productMap[item.ProductId] = product;
                 }
 
-                if (product.ProductStock < item.CartItemQuantity)
+                // Tạo Order
+                var order = new Order
                 {
-                    return JsonError($"Soldout: {product.ProductName}");
-                }
+                    UserId = userId,
+                    OrderDate = DateTime.Now,
+                    PaymentMethod = "Cash on Delivery",
+                    Status = OrderStatus.Pending.ToString(),
+                    TotalAmount = cartItems.Sum(item =>
+                        item.CartItemQuantity * productMap[item.ProductId].Price),
+                    OrderDetails = cartItems.Select(item => new OrderDetail
+                    {
+                        ProductId = item.ProductId,
+                        OrderDetailPrice = productMap[item.ProductId].Price,
+                        OrderDetailQuantity = item.CartItemQuantity
+                    }).ToList()
+                };
 
-               
+                _context.Orders.Add(order);
+                _context.CartItems.RemoveRange(cartItems);
 
-                // Trừ kho
-                product.ProductStock -= item.CartItemQuantity;
-                product.Flock.FlockQuantity -= item.CartItemQuantity;
-                // Nếu vừa hết hàng thì ghi nhận thời gian
-                if (product.ProductStock <= 0 && product.OutOfStockAt == null)
-                {
-                    product.OutOfStockAt = DateTime.Now;
-                }
-                // Sau khi trừ, kiểm tra trạng thái đàn
-                await UpdateFlockStatusIfCompleted(product.FlockId);
+                await _context.SaveChangesAsync();
+                await transaction.CommitAsync();
 
-                productMap[item.ProductId] = product;
+                TempData["OrderId"] = order.Id;
+                return Json(new { success = true, redirectUrl = Url.Action("Success", "Checkout") });
             }
-
-            // Tính tổng tiền và tạo đơn hàng
-            var order = new Order
+            catch (Exception ex)
             {
-                UserId = userId,
-                OrderDate = DateTime.Now,
-                PaymentMethod = "Cash on Delivery",
-                Status = OrderStatus.Pending.ToString(),
-                TotalAmount = cartItems.Sum(item =>
-                    item.CartItemQuantity * productMap[item.ProductId].Price),
-                OrderDetails = cartItems.Select(item => new OrderDetail
-                {
-                    ProductId = item.ProductId,
-                    OrderDetailPrice = productMap[item.ProductId].Price,
-                    OrderDetailQuantity = item.CartItemQuantity
-                }).ToList()
-            };
-
-            _context.Orders.Add(order);
-
-            // Xóa giỏ hàng sau khi đặt
-            _context.CartItems.RemoveRange(cartItems);
-
-            await _context.SaveChangesAsync();
-
-            TempData["OrderId"] = order.Id;
-
-            return Json(new { success = true, redirectUrl = Url.Action("Success", "Checkout") });
+                await transaction.RollbackAsync();
+                return JsonError("❌ Failed to process order: " + ex.Message);
+            }
         }
+
 
         private async Task UpdateFlockStatusIfCompleted(int flockId)
         {

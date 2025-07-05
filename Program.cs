@@ -9,6 +9,7 @@ using System.Security.Claims;
 using ChickenF.Data;
 using ChickenF.Models;
 using Hangfire;
+using ChickenF.Jobs;
 using Hangfire.MemoryStorage;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddHttpClient();
@@ -118,6 +119,12 @@ app.UseSession();
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.UseHangfireDashboard();
+RecurringJob.AddOrUpdate<StockRecoveryJob>(
+    "restore-stock-cancelled-orders",
+    job => job.RestoreStockFromCancelledOrders(),
+    Cron.Hourly
+);
 // ROUTER
 
 // Mặc định cho người dùng thường

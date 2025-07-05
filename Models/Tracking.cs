@@ -8,11 +8,11 @@ namespace ChickenF.Models
     {
         public int Id { get; set; }
 
-        [Required]
+        
         public int FlockId { get; set; }
 
-        [ForeignKey("FlockId")]
-        public Flock? Flock { get; set; }
+        
+        public Flock Flock { get; set; } = null!;
 
         [DataType(DataType.Date)]
         public DateTime TrackingDate { get; set; }

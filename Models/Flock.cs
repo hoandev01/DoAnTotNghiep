@@ -11,15 +11,18 @@ namespace ChickenF.Models
         [Required, StringLength(100)]
         public string FlockName { get; set; } = string.Empty;
 
+
+
         
-
-        [Required, ForeignKey("Cage")]
         public int CageId { get; set; }
-        public Cage? Cage { get; set; }
 
-        [Required, ForeignKey("Category")]
+        
+        public Cage Cage { get; set; } = null!;
+        
         public int CategoryId { get; set; }
-        public Category? Category { get; set; }
+
+        
+        public Category Category { get; set; } = null!;
 
         [Required, Range(1, int.MaxValue)]
         public int FlockQuantity { get; set; }

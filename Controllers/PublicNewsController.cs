@@ -12,16 +12,28 @@ namespace ChickenF.Controllers
         {
             _context = context;
         }
-
-        // Hiển thị danh sách tin công khai
-        public async Task<IActionResult> Index()
+        // Hiển thị danh sách tin công khai (có hỗ trợ tìm kiếm)
+        public async Task<IActionResult> Index(string searchString = "")
         {
-            var newsList = await _context.NewsArticles
+            ViewBag.CurrentFilter = searchString;
+
+            var newsList = _context.NewsArticles.AsQueryable();
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                newsList = newsList.Where(n =>
+                    n.Title.Contains(searchString) ||
+                    n.Summary.Contains(searchString));
+            }
+
+            var result = await newsList
                 .OrderByDescending(n => n.PublishedDate)
                 .ToListAsync();
 
-            return View(newsList);
+            return View(result);
         }
+
+
 
         // Xem chi tiết một tin
         public async Task<IActionResult> Details(int id)

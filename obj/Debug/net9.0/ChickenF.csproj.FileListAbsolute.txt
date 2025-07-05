@@ -509,10 +509,10 @@ D:\Code\ChickenF\obj\Debug\net9.0\staticwebassets\msbuild.build.ChickenF.props
 D:\Code\ChickenF\obj\Debug\net9.0\staticwebassets\msbuild.buildMultiTargeting.ChickenF.props
 D:\Code\ChickenF\obj\Debug\net9.0\staticwebassets\msbuild.buildTransitive.ChickenF.props
 D:\Code\ChickenF\obj\Debug\net9.0\staticwebassets.pack.json
-D:\Code\ChickenF\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt
 D:\Code\ChickenF\obj\Debug\net9.0\ChickenF.csproj.Up2Date
 D:\Code\ChickenF\obj\Debug\net9.0\ChickenF.dll
 D:\Code\ChickenF\obj\Debug\net9.0\refint\ChickenF.dll
 D:\Code\ChickenF\obj\Debug\net9.0\ChickenF.pdb
 D:\Code\ChickenF\obj\Debug\net9.0\ChickenF.genruntimeconfig.cache
 D:\Code\ChickenF\obj\Debug\net9.0\ref\ChickenF.dll
+D:\Code\ChickenF\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt

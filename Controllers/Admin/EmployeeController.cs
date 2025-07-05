@@ -14,17 +14,30 @@ namespace ChickenF.Controllers.EmployeeArea
         {
             _context = context;
         }
-
-        public async Task<IActionResult> Index(int page = 1)
+        //get method
+        public async Task<IActionResult> Index(int page = 1, string searchString = "")
         {
             if (!User.IsInRole("Admin"))
                 return View("~/Views/Shared/Unauthorized.cshtml");
 
+            ViewBag.CurrentFilter = searchString;
             int pageSize = 5;
-            var employees = _context.Employees.OrderBy(c => c.FullName);
+
+            var employees = _context.Employees.AsQueryable();
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                employees = employees.Where(e =>
+                    e.FullName.Contains(searchString) ||
+                    e.Username.Contains(searchString) ||
+                    e.Email.Contains(searchString));
+            }
+
+            employees = employees.OrderBy(e => e.FullName);
             var paginatedList = await PaginatedList<Employee>.CreateAsync(employees, page, pageSize);
             return View(paginatedList);
         }
+
 
         public IActionResult Create()
         {

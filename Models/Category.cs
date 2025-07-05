@@ -20,7 +20,8 @@ namespace ChickenF.Models
         public int PreSaleDays { get; set; }
         public int ReadyDays { get; set; }
 
-        public ICollection<Flock> Flocks { get; set; }
+        // ✅ Một Category có thể chứa nhiều Flock
+        public ICollection<Flock> Flocks { get; set; } = new List<Flock>();
 
     }
 }

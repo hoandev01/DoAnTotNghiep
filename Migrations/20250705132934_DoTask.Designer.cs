@@ -4,6 +4,7 @@ using ChickenF.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ChickenF.Migrations
 {
     [DbContext(typeof(FarmContext))]
-    partial class FarmContextModelSnapshot : ModelSnapshot
+    [Migration("20250705132934_DoTask")]
+    partial class DoTask
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -120,6 +123,9 @@ namespace ChickenF.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("CategoryId1")
+                        .HasColumnType("int");
+
                     b.Property<string>("ChickenSize")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -154,6 +160,8 @@ namespace ChickenF.Migrations
                     b.HasIndex("CageId");
 
                     b.HasIndex("CategoryId");
+
+                    b.HasIndex("CategoryId1");
 
                     b.ToTable("Flocks");
                 });
@@ -418,6 +426,9 @@ namespace ChickenF.Migrations
                     b.Property<int>("FlockId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("FlockId1")
+                        .HasColumnType("int");
+
                     b.Property<string>("HealthStatus")
                         .HasColumnType("nvarchar(max)");
 
@@ -436,6 +447,8 @@ namespace ChickenF.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("FlockId");
+
+                    b.HasIndex("FlockId1");
 
                     b.ToTable("Trackings");
                 });
@@ -539,10 +552,14 @@ namespace ChickenF.Migrations
                         .IsRequired();
 
                     b.HasOne("ChickenF.Models.Category", "Category")
-                        .WithMany("Flocks")
+                        .WithMany()
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.HasOne("ChickenF.Models.Category", null)
+                        .WithMany("Flocks")
+                        .HasForeignKey("CategoryId1");
 
                     b.Navigation("Cage");
 
@@ -604,10 +621,14 @@ namespace ChickenF.Migrations
             modelBuilder.Entity("ChickenF.Models.Tracking", b =>
                 {
                     b.HasOne("ChickenF.Models.Flock", "Flock")
-                        .WithMany("Trackings")
+                        .WithMany()
                         .HasForeignKey("FlockId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("ChickenF.Models.Flock", null)
+                        .WithMany("Trackings")
+                        .HasForeignKey("FlockId1");
 
                     b.Navigation("Flock");
                 });

@@ -5,6 +5,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 
     var isOutOfStock = Model.ProductStock == 0;
+    //available stock
+    var availableStock = Model.ProductStock - Model.ReservedQuantity;
+
     var isRecentlySoldOut = isOutOfStock && Model.OutOfStockAt.HasValue && Model.OutOfStockAt.Value >= DateTime.Now.AddDays(-1);
 }
 
@@ -120,8 +123,11 @@
                     <p><strong>Price per unit(VND):</strong> <span class="price-text">@Model.Price.ToString("N0", System.Globalization.CultureInfo.InvariantCulture)</span></p>
                     <p>
                         <strong>Stock:</strong>
-                        <span class="@(isOutOfStock ? "text-danger fw-semibold" : "text-success fw-semibold")">@Model.ProductStock</span>
+                        <span class="@(isOutOfStock ? "text-danger fw-semibold" : "text-success fw-semibold")">@Model.ProductStock</span><br />
+                        <strong>Available:</strong>
+                        <span class="text-primary fw-semibold">@availableStock</span>
                     </p>
+
                     <p class="text-muted mb-4"><strong>Note:</strong> @Model.ProductDescription</p>
 
                     @if (!isOutOfStock)

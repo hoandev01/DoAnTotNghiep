@@ -17,26 +17,37 @@ namespace ChickenF.Controllers.EmployeeArea
         {
             _context = context;
         }
-
-        // GET: Product
-        public async Task<IActionResult> Index(int page = 1)
+        //get product
+        public async Task<IActionResult> Index(string search, int page = 1)
         {
             int pageSize = 3;
 
-            var products =  _context.Products
+            var productsQuery = _context.Products
                 .Include(p => p.Flock)
-                .AsNoTracking()
-                .OrderByDescending(f => f.DateCreated);
-            var paginatedList = await PaginatedList<Product>.CreateAsync(products, page, pageSize);
-            if (products == null || !products.Any())
+                .AsNoTracking();
+
+            if (!string.IsNullOrEmpty(search))
             {
-                return View("NoData"); // Tạo view NoData.cshtml để thông báo không có dữ liệu
+                productsQuery = productsQuery.Where(p => p.ProductName.Contains(search));
             }
+
+            productsQuery = productsQuery.OrderByDescending(f => f.DateCreated);
+
+            var paginatedList = await PaginatedList<Product>.CreateAsync(productsQuery, page, pageSize);
+
+            if (!paginatedList.Any())
+            {
+                return View("NoData");
+            }
+
+            ViewData["Search"] = search;
             ViewData["FlockId"] = new SelectList(_context.Flocks, "Id", "FlockName");
             ViewData["FeedType"] = new SelectList(_context.Flocks, "Id", "FeedType");
             ViewData["ChickenSize"] = new SelectList(_context.Flocks, "Id", "ChickenSize");
+
             return View(paginatedList);
         }
+
 
         // GET: Product/Details/5
         public async Task<IActionResult> Details(int? id)

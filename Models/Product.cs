@@ -22,9 +22,9 @@ namespace ChickenF.Models
         
         public int Price { get; set; }
 
-        
-        
-        
+
+
+        public int ReservedQuantity { get; set; } = 0;
         public int ProductStock { get; set; }
         [DataType(DataType.Date)]
         

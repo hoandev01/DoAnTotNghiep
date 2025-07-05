@@ -17,20 +17,27 @@ namespace ChickenF.Controllers.EmployeeArea
         }
 
         // GET: Flock
-        public async Task<IActionResult> Index(DateTime? selectedDate, string sortOrder)
+        public async Task<IActionResult> Index(DateTime? selectedDate, string sortOrder, string searchString)
+
         {
             DateTime today = selectedDate ?? DateTime.Today;
             ViewBag.SelectedDate = today;
 
-            // Dùng ViewBag để hỗ trợ đổi chiều sắp xếp
-            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-            ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
+            ViewBag.NameSort = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.DateSort = sortOrder == "Date" ? "date_desc" : "Date";
+            ViewBag.QuantitySort = sortOrder == "quantity" ? "quantity_desc" : "quantity";
 
             var flocks = await _context.Flocks
                 .Include(f => f.Category)
                 .Include(f => f.Cage)
                 .Include(f => f.FlockStages)
                 .ToListAsync();
+
+            // 🔍 Lọc theo tên (nếu có)
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                flocks = flocks.Where(f => f.FlockName.Contains(searchString, StringComparison.OrdinalIgnoreCase)).ToList();
+            }
 
             // Logic stage như cũ
             var viewModelList = flocks.Select(flock => {
@@ -81,15 +88,18 @@ namespace ChickenF.Controllers.EmployeeArea
                     SuggestedSaleDate = suggestedSaleDate
                 };
             }).ToList();
-
-            // ✳️ Áp dụng sắp xếp
+            // Áp dụng sort
             viewModelList = sortOrder switch
             {
                 "name_desc" => viewModelList.OrderByDescending(v => v.Flock.FlockName).ToList(),
                 "Date" => viewModelList.OrderBy(v => v.Flock.DayIn).ToList(),
                 "date_desc" => viewModelList.OrderByDescending(v => v.Flock.DayIn).ToList(),
+                "quantity" => viewModelList.OrderBy(v => v.Flock.FlockQuantity).ToList(),
+                "quantity_desc" => viewModelList.OrderByDescending(v => v.Flock.FlockQuantity).ToList(),
                 _ => viewModelList.OrderBy(v => v.Flock.FlockName).ToList(),
             };
+
+            ViewBag.CurrentFilter = searchString;
 
             return View(viewModelList);
         }

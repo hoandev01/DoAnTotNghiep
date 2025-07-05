@@ -17,21 +17,30 @@ namespace ChickenF.Controllers.EmployeeArea
             _context = context;
         }
 
-        // GET: Cage
-        public async Task<IActionResult> Index(int page = 1)
+        public async Task<IActionResult> Index(int page = 1, string searchString = "")
         {
             int pageSize = 5;
+            ViewBag.CurrentFilter = searchString;
 
-            var cages =  _context.Cages
-                .AsNoTracking()
-                .OrderByDescending(f => f.CageCapacity);
-            var paginatedList = await PaginatedList<Cage>.CreateAsync(cages, page, pageSize);
-            if (cages == null || !cages.Any())
+            var cages = _context.Cages.AsQueryable();
+
+            if (!string.IsNullOrEmpty(searchString))
             {
-                return View("NoCages"); // Tạo view NoCages.cshtml nếu muốn
+                cages = cages.Where(c =>
+                    c.CageName.Contains(searchString) ||
+                    c.CageType.Contains(searchString)
+                    );
             }
+
+            cages = cages.OrderByDescending(f => f.CageCapacity);
+            var paginatedList = await PaginatedList<Cage>.CreateAsync(cages.AsNoTracking(), page, pageSize);
+
+            if (!paginatedList.Any())
+                return View("NoCages"); // Tùy chọn: tạo view riêng nếu không có dữ liệu
+
             return View(paginatedList);
         }
+
 
         // GET: Cage/Details/5
         public async Task<IActionResult> Details(int? id)

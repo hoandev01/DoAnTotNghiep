@@ -3,14 +3,26 @@
 @{
     ViewData["Title"] = "Cage Management";
     Layout = "~/Views/Shared/_LayoutEmployee.cshtml";
+    string currentFilter = ViewBag.CurrentFilter as string ?? "";
 }
 
 <div class="px-6 py-8">
     <div class="flex justify-between items-center mb-6">
         <h1 class="text-2xl font-bold text-gray-800">🏠 Cage Management</h1>
-        <a asp-action="Create" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 text-sm shadow">
-            + Add New
-        </a>
+
+        <div class="flex items-center gap-2">
+            <form method="get" class="flex gap-2">
+                <input type="text" name="searchString" value="@currentFilter" placeholder="🔍 Search by name/type/area"
+                       class="border px-3 py-1 rounded text-sm" />
+                <button type="submit" class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 text-sm">
+                    Search
+                </button>
+            </form>
+
+            <a asp-action="Create" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 text-sm shadow">
+                + Add New
+            </a>
+        </div>
     </div>
 
     <div class="overflow-auto bg-white shadow rounded-xl">
@@ -34,7 +46,7 @@
                         <td class="px-4 py-3">@item.CageArea</td>
                         <td class="px-4 py-3">
                             <div class="flex justify-center gap-2 flex-wrap">
-                                 <a asp-action="Edit" asp-route-id="@item.Id"
+                                <a asp-action="Edit" asp-route-id="@item.Id"
                                    class="bg-yellow-500 text-white px-3 py-1 rounded text-xs hover:bg-yellow-600">Edit</a>
                                 <a asp-action="Delete" asp-route-id="@item.Id"
                                    class="bg-red-500 text-white px-3 py-1 rounded text-xs hover:bg-red-600">Delete</a>
@@ -52,14 +64,12 @@
         <div class="mt-6 flex justify-center">
             <nav class="inline-flex items-center space-x-1" aria-label="Pagination">
 
-                <!-- First Page -->
-                <a asp-action="Index" asp-route-page="1"
+                <a asp-action="Index" asp-route-page="1" asp-route-searchString="@currentFilter"
                    class="px-3 py-1.5 border border-gray-300 rounded-l-md bg-white text-gray-700 hover:bg-gray-100 @(Model.PageIndex == 1 ? "opacity-50 pointer-events-none" : "")">
                     First
                 </a>
 
-                <!-- Previous -->
-                <a asp-action="Index" asp-route-page="@(Model.PageIndex - 1)"
+                <a asp-action="Index" asp-route-page="@(Model.PageIndex - 1)" asp-route-searchString="@currentFilter"
                    class="px-3 py-1.5 border border-gray-300 bg-white text-gray-700 hover:bg-gray-100 @(Model.HasPreviousPage ? "" : "opacity-50 pointer-events-none")">
                     Previous
                 </a>
@@ -75,21 +85,19 @@
 
                 @for (int i = start; i <= end; i++)
                 {
-                    <a asp-action="Index" asp-route-page="@i"
+                    <a asp-action="Index" asp-route-page="@i" asp-route-searchString="@currentFilter"
                        class="px-3 py-1.5 border border-gray-300 text-sm transition
-                   @(i == Model.PageIndex ? "bg-blue-600 text-white font-semibold" : "text-gray-700 bg-white hover:bg-gray-100")">
+                              @(i == Model.PageIndex ? "bg-blue-600 text-white font-semibold" : "text-gray-700 bg-white hover:bg-gray-100")">
                         @i
                     </a>
                 }
 
-                <!-- Next -->
-                <a asp-action="Index" asp-route-page="@(Model.PageIndex + 1)"
+                <a asp-action="Index" asp-route-page="@(Model.PageIndex + 1)" asp-route-searchString="@currentFilter"
                    class="px-3 py-1.5 border border-gray-300 bg-white text-gray-700 hover:bg-gray-100 @(Model.HasNextPage ? "" : "opacity-50 pointer-events-none")">
                     Next
                 </a>
 
-                <!-- Last Page -->
-                <a asp-action="Index" asp-route-page="@Model.TotalPages"
+                <a asp-action="Index" asp-route-page="@Model.TotalPages" asp-route-searchString="@currentFilter"
                    class="px-3 py-1.5 border border-gray-300 rounded-r-md bg-white text-gray-700 hover:bg-gray-100 @(Model.PageIndex == Model.TotalPages ? "opacity-50 pointer-events-none" : "")">
                     Last
                 </a>

@@ -75,12 +75,13 @@ namespace ChickenF.Data
                 .HasForeignKey(f => f.CageId)
                 .OnDelete(DeleteBehavior.Restrict); // Cấm xoá Cage nếu còn Flock
 
-            // 🧪 Flock → Category: KHÔNG dùng Cascade
+            // Ràng buộc Flock → Category rõ ràng
             modelBuilder.Entity<Flock>()
                 .HasOne(f => f.Category)
-                .WithMany()
+                .WithMany(c => c.Flocks) // thêm nếu bạn muốn Category có danh sách Flocks
                 .HasForeignKey(f => f.CategoryId)
-                .OnDelete(DeleteBehavior.Restrict); // Tránh mất dữ liệu nếu xóa Category
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Restrict);
 
             // 🧬 FlockStage → Flock: Có thể dùng Cascade
             modelBuilder.Entity<FlockStage>()
@@ -89,12 +90,13 @@ namespace ChickenF.Data
                 .HasForeignKey(fs => fs.FlockId)
                 .OnDelete(DeleteBehavior.Cascade); // Flock bị xoá → xoá luôn FlockStages
 
-            // 📊 Tracking → Flock: Có thể dùng Cascade
+            // Ràng buộc Tracking → Flock rõ ràng
             modelBuilder.Entity<Tracking>()
                 .HasOne(t => t.Flock)
-                .WithMany()
+                .WithMany(f => f.Trackings) // thêm nếu bạn muốn Flock có danh sách Trackings
                 .HasForeignKey(t => t.FlockId)
-                .OnDelete(DeleteBehavior.Cascade); // Xoá Flock sẽ xoá theo Tracking
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Cascade);
 
             // 🛒 CartItem → Product: KHÔNG cascade
             modelBuilder.Entity<CartItem>()

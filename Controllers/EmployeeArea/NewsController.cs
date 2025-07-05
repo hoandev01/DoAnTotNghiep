@@ -20,14 +20,27 @@ namespace ChickenF.Controllers.EmployeeArea
             _httpClientFactory = httpClientFactory;
         }
 
-        public async Task<IActionResult> Index()
+        // Hiển thị danh sách tin công khai (có thêm search)
+        public async Task<IActionResult> Index(string searchString = "")
         {
-            var localNews = await _context.NewsArticles
+            ViewBag.CurrentFilter = searchString;
+
+            var newsList = _context.NewsArticles.AsQueryable();
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                newsList = newsList.Where(n =>
+                    n.Title.Contains(searchString) ||
+                    n.Summary.Contains(searchString));
+            }
+
+            var result = await newsList
                 .OrderByDescending(n => n.PublishedDate)
                 .ToListAsync();
 
-            return View(localNews);
+            return View(result);
         }
+
 
         public async Task<IActionResult> Details(int id)
         {

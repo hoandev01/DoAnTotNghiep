@@ -23,20 +23,38 @@ namespace ChickenF.Controllers.EmployeeArea
             _serviceProvider = serviceProvider;
         }
 
-        // GET: Orders
-        public async Task<IActionResult> Index(int page = 1)
+        public async Task<IActionResult> Index(string search, string status, int page = 1)
         {
-            await CleanupCancelledOrders(); // Cleanup
+            await CleanupCancelledOrders();
 
             int pageSize = 5;
-            var orders = _context.Orders
+            var query = _context.Orders
                 .Include(o => o.User)
                 .AsNoTracking()
-                .OrderByDescending(o => o.OrderDate);
+                .OrderByDescending(o => o.OrderDate)
+                .AsQueryable();
 
-            var paginatedList = await PaginatedList<Order>.CreateAsync(orders, page, pageSize);
+            if (!string.IsNullOrEmpty(search))
+            {
+                query = query.Where(o =>
+                    o.Id.ToString().Contains(search) ||
+                    o.UserId.ToString().Contains(search));
+            }
+
+            if (!string.IsNullOrEmpty(status))
+            {
+                query = query.Where(o => o.Status == status);
+            }
+
+            var paginatedList = await PaginatedList<Order>.CreateAsync(query, page, pageSize);
+
+            ViewData["Search"] = search;
+            ViewData["Status"] = status;
+
             return View(paginatedList);
         }
+
+
 
         // GET: Orders/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -75,9 +93,20 @@ namespace ChickenF.Controllers.EmployeeArea
         [HttpPost]
         public async Task<IActionResult> CancelOrder(int id, string reason)
         {
-            var order = await _context.Orders.FindAsync(id);
+            var order = await _context.Orders
+                .Include(o => o.OrderDetails)
+                .ThenInclude(od => od.Product)
+                .FirstOrDefaultAsync(o => o.Id == id);
+
             if (order == null || order.Status != OrderStatus.Pending)
                 return NotFound();
+
+            // ✅ Trả lại hàng
+            foreach (var detail in order.OrderDetails)
+            {
+                var product = detail.Product;
+                product.ReservedQuantity -= detail.OrderDetailQuantity;
+            }
 
             order.Status = OrderStatus.Cancelled;
             order.CancelReason = reason;
@@ -86,6 +115,7 @@ namespace ChickenF.Controllers.EmployeeArea
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
         }
+
 
         [HttpPost]
         public async Task<IActionResult> Cancel(int id, string reason)
@@ -103,17 +133,30 @@ namespace ChickenF.Controllers.EmployeeArea
         [HttpPost]
         public async Task<IActionResult> MarkAsDelivered(int id)
         {
-            var order = await _context.Orders.FindAsync(id);
-            if (order == null) return NotFound();
+            var order = await _context.Orders
+                .Include(o => o.OrderDetails)
+                .ThenInclude(od => od.Product)
+                .FirstOrDefaultAsync(o => o.Id == id);
 
-            if (order.Status == OrderStatus.Shipping)
+            if (order == null || order.Status != OrderStatus.Shipping)
+                return NotFound();
+
+            foreach (var detail in order.OrderDetails)
             {
-                order.Status = OrderStatus.Delivered;
-                await _context.SaveChangesAsync();
+                var product = detail.Product;
+                product.ProductStock -= detail.OrderDetailQuantity;
+                product.ReservedQuantity -= detail.OrderDetailQuantity;
+
+                if (product.ProductStock <= 0 && product.OutOfStockAt == null)
+                    product.OutOfStockAt = DateTime.Now;
             }
+
+            order.Status = OrderStatus.Delivered;
+            await _context.SaveChangesAsync();
 
             return RedirectToAction("Index");
         }
+
 
         public IActionResult Create()
         {

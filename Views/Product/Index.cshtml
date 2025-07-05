@@ -16,6 +16,14 @@
             </form>
         </div>
     </div>
+    <!--- Search--->
+    <form asp-action="Index" method="get" class="mb-4 max-w-md">
+        <div class="flex gap-2">
+            <input type="text" name="search" class="form-input flex-1 rounded-lg border-gray-300 shadow-sm"
+                   placeholder="🔍 Search product name..." value="@ViewData["Search"]" />
+            <button type="submit" class="bg-blue-600 text-white px-4 rounded hover:bg-blue-700">Search</button>
+        </div>
+    </form>
 
     <!-- Table -->
     <div class="overflow-auto bg-white shadow-md rounded-2xl">

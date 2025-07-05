@@ -65,12 +65,15 @@ namespace ChickenF.Controllers
             int currentCartQty = cartItem?.CartItemQuantity ?? 0;
             int totalAfterAdd = currentCartQty + quantity;
 
-            if (totalAfterAdd > product.ProductStock)
+            // ✅ Tính tồn kho thực sự còn có thể đặt
+            int availableStock = product.ProductStock - product.ReservedQuantity;
+
+            if (totalAfterAdd > availableStock)
             {
                 return Json(new
                 {
                     success = false,
-                    message = $"Không thể thêm {quantity} sản phẩm. Hiện bạn đã có {currentCartQty}, tồn kho chỉ còn {product.ProductStock}."
+                    message = $"Can not add {quantity} products. You having {currentCartQty}, remaining inventory: {availableStock}."
                 });
             }
 
@@ -90,8 +93,10 @@ namespace ChickenF.Controllers
             }
 
             _context.SaveChanges();
-            return Json(new { success = true, message = "Sản phẩm đã được thêm vào giỏ hàng." });
+
+            return Json(new { success = true, message = "Product Added To Cart." });
         }
+
 
         [HttpPost]
         public IActionResult UpdateQuantity(int cartItemId, int quantity)

@@ -52,16 +52,43 @@
 <div class="container py-5">
     <h1 class="mb-4 text-primary">Shop</h1>
 
-    <!-- Sort Dropdown -->
-    <form method="get" asp-controller="Shop" asp-action="Index" class="mb-4">
-        <div class="col-md-3">
-            <select class="form-select" name="sort" onchange="this.form.submit()">
-                <option value="">-- Sort by --</option>
-                <option value="priceAsc" selected="@(ViewData["Sort"]?.ToString() == "priceAsc")">Price Increase</option>
-                <option value="priceDesc" selected="@(ViewData["Sort"]?.ToString() == "priceDesc")">Price Decrease</option>
+   
+    <form method="get" asp-controller="Shop" asp-action="Index" class="row mb-4">
+        <div class="col-md-4 mb-2">
+            <input type="text" name="search" class="form-control"
+                   placeholder="🔍 Search products..." value="@ViewData["Search"]" />
+        </div>
+
+        <div class="col-md-3 mb-2">
+            <select name="categoryId" class="form-select" onchange="this.form.submit()">
+                <option value="">-- Filter by Category --</option>
+                @foreach (var cat in (SelectList)ViewData["Categories"])
+                {
+                    var selected = cat.Value == Context.Request.Query["categoryId"]
+                    ? "selected"
+                    : null;
+
+                    <option value="@cat.Value" selected="@selected">@cat.Text</option>
+                }
             </select>
         </div>
+
+        <div class="col-md-3 mb-2">
+            <select name="sort" class="form-select" onchange="this.form.submit()">
+                <option value="">-- Sort by --</option>
+                <option value="priceAsc" selected="@(ViewData["Sort"]?.ToString() == "priceAsc")">Price ↑</option>
+                <option value="priceDesc" selected="@(ViewData["Sort"]?.ToString() == "priceDesc")">Price ↓</option>
+            </select>
+        </div>
+
+        <div class="col-md-2 mb-2">
+            <button type="submit" class="btn btn-primary w-100">
+                <i class="fas fa-search me-1"></i> Search
+            </button>
+        </div>
     </form>
+
+
 
     <!-- Toast -->
     <div class="position-fixed top-0 end-0 p-3" style="z-index: 9999;">
@@ -77,7 +104,11 @@
     <div class="row">
         @foreach (var product in Model)
         {
+            //show available stock
             var stock = product.ProductStock;
+            var reserved = product.ReservedQuantity;
+            var availableStock = stock - reserved;
+
             var price = product.Price;
             bool isOutOfStock = stock == 0;
             bool isRecentlySoldOut = isOutOfStock && product.OutOfStockAt.HasValue && product.OutOfStockAt.Value >= DateTime.Now.AddDays(-1);
@@ -97,7 +128,8 @@
                     <div class="card-body d-flex flex-column">
                         <h5 class="card-title">@product.ProductName</h5>
                         <p class="card-text text-danger fw-bold">@price.ToString("N0", System.Globalization.CultureInfo.InvariantCulture) VND</p>
-                        <p class="text-muted">Inventory: <strong>@stock</strong></p>
+                        <p class="text-muted">Inventory: <strong>@stock</strong> | Available: <strong>@availableStock</strong></p>
+
 
                         @if (!isOutOfStock)
                         {

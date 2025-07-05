@@ -50,6 +50,7 @@ namespace ChickenF.Controllers
             ViewData["Search"] = search;
             ViewData["Sort"] = sort;
 
+
             return View(products);
         }
 

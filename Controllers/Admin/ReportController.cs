@@ -35,11 +35,16 @@ namespace ChickenF.Controllers.EmployeeArea
                     .SelectMany(p => p.OrderDetails)
                     .Where(od => od.Order?.Status == "Delivered");
 
-                // ✅ Đã sửa: nhân số lượng với đơn giá để tính đúng doanh thu
                 var totalRevenue = orders.Sum(od => od.OrderDetailPrice * od.OrderDetailQuantity);
-
                 var totalSold = orders.Sum(od => od.OrderDetailQuantity);
-                var feedCost = flock.Trackings.Sum(t => t.FeedCost);
+
+                var feedCost = flock.Trackings?.Sum(t => t.FeedCost) ?? 0;
+
+                // 🐞 Debug ghi ra console
+                if (feedCost == 0)
+                {
+                    Console.WriteLine($"[DEBUG] FlockId: {flock.Id} - FeedCost = 0 - TrackingCount: {flock.Trackings?.Count}");
+                }
 
                 return new FlockReportViewModel
                 {
@@ -51,6 +56,7 @@ namespace ChickenF.Controllers.EmployeeArea
                     ReportGeneratedAt = DateTime.Now
                 };
             }).ToList();
+
 
             return View(reports);
         }
@@ -129,9 +135,13 @@ namespace ChickenF.Controllers.EmployeeArea
                     .SelectMany(p => p.OrderDetails)
                     .Where(od => od.Order?.Status == "Delivered");
 
-                var totalRevenue = orders.Sum(od => od.OrderDetailPrice);
+                // ✅ Sửa đúng: Doanh thu = đơn giá * số lượng
+                var totalRevenue = orders.Sum(od => od.OrderDetailPrice * od.OrderDetailQuantity);
+
                 var totalSold = orders.Sum(od => od.OrderDetailQuantity);
-                var feedCost = flock.Trackings.Sum(t => t.FeedCost);
+
+                // ✅ Kiểm tra nếu không có tracking thì mặc định là 0
+                var feedCost = flock.Trackings?.Sum(t => t.FeedCost) ?? 0;
 
                 return new
                 {
@@ -152,6 +162,7 @@ namespace ChickenF.Controllers.EmployeeArea
 
             return Json(reports);
         }
+
 
         [HttpGet]
         public async Task<IActionResult> GetDashboardKPIs()

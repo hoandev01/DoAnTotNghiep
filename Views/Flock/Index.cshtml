@@ -4,6 +4,7 @@
     ViewData["Title"] = "Flocks";
     Layout = "~/Views/Shared/_LayoutEmployee.cshtml";
     DateTime selectedDate = ViewBag.SelectedDate ?? DateTime.Now;
+    string currentFilter = ViewBag.CurrentFilter ?? "";
 }
 
 <div class="px-6 py-8">
@@ -13,7 +14,8 @@
         <div class="flex items-center gap-3">
             <form method="get" class="flex items-center gap-2">
                 <input type="date" name="selectedDate" value="@selectedDate:yyyy-MM-dd" class="border px-2 py-1 rounded" />
-                <button type="submit" class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 text-sm">Filter by Date</button>
+                <input type="text" name="searchString" placeholder="🔍 Search name..." value="@currentFilter" class="border px-2 py-1 rounded" />
+                <button type="submit" class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 text-sm">Search</button>
             </form>
 
             <a asp-action="Create" class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700 text-sm shadow">+ Add New</a>
@@ -25,16 +27,34 @@
             <thead class="bg-gray-100 text-gray-700 uppercase">
                 <tr>
                     <th class="px-4 py-3">
-                        <a asp-action="Index" asp-route-sortOrder="@ViewBag.NameSort" class="hover:underline">Flock Name</a>
+                        <a asp-action="Index"
+                           asp-route-sortOrder="@ViewBag.NameSort"
+                           asp-route-searchString="@currentFilter"
+                           asp-route-selectedDate="@selectedDate.ToString("yyyy-MM-dd")"
+                           class="hover:underline">
+                            Flock Name
+                        </a>
                     </th>
                     <th class="px-4 py-3">Category</th>
                     <th class="px-4 py-3">Cage</th>
                     <th class="px-4 py-3">
-                        <a asp-action="Index" asp-route-sortOrder="@ViewBag.QuantitySort" class="hover:underline">Quantity</a>
+                        <a asp-action="Index"
+                           asp-route-sortOrder="@ViewBag.QuantitySort"
+                           asp-route-searchString="@currentFilter"
+                           asp-route-selectedDate="@selectedDate.ToString("yyyy-MM-dd")"
+                           class="hover:underline">
+                            Quantity
+                        </a>
                     </th>
                     <th class="px-4 py-3">Size</th>
                     <th class="px-4 py-3">
-                        <a asp-action="Index" asp-route-sortOrder="@ViewBag.DateSort" class="hover:underline">Day In</a>
+                        <a asp-action="Index"
+                           asp-route-sortOrder="@ViewBag.DateSort"
+                           asp-route-searchString="@currentFilter"
+                           asp-route-selectedDate="@selectedDate.ToString("yyyy-MM-dd")"
+                           class="hover:underline">
+                            Day In
+                        </a>
                     </th>
                     <th class="px-4 py-3">Feed Type</th>
                     <th class="px-4 py-3">Flock Status</th>
@@ -51,10 +71,10 @@
 
                     string rowBg = vm.CurrentStageName switch
                     {
-                        "Ready for Sale" => "bg-green-100",       // ✅ Ready
-                        "Pre-Sale Stage" => "bg-orange-100",       // 🛒 Pre-sale
-                        "Growth Stage" => "bg-yellow-100",         // 🌱 Growth
-                        "Brooding Stage" => "bg-blue-100",         // 🐣 Brooding
+                        "Ready for Sale" => "bg-green-100",
+                        "Pre-Sale Stage" => "bg-orange-100",
+                        "Growth Stage" => "bg-yellow-100",
+                        "Brooding Stage" => "bg-blue-100",
                         "Unknown" or null => "bg-gray-100",
                         _ => "bg-white"
                     };
